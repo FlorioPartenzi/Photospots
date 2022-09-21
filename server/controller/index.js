@@ -10,9 +10,17 @@ const registerUser = async function (req, res) {
           password: req.body.password,
         },
       };
-      await prisma.users.create(user);
-      res.send('registered User');
-      res.status(201);
+      const userAllreadyInUse = await prisma.users.findUnique({
+        where: { email: req.body.email },
+      });
+      if (!userAllreadyInUse) {
+        await prisma.users.create(user);
+        res.send('registered User');
+        res.status(201);
+      } else {
+        res.send('user allready in use');
+        res.status(204);
+      }
     } else {
       res.send('failed to register');
       res.status(204);
@@ -48,4 +56,19 @@ const loginUser = async function (req, res) {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const getUserInfo = async function (req, res) {
+  try {
+    const user = await prisma.users.findUnique({
+      where: { email: req.body.email },
+      select: { name: true, email: true },
+    });
+    res.send(user);
+    res.status(200);
+  } catch (error) {
+    console.log('ERROR in controller/index.js at getUserInfo', error);
+    res.send('failed to load user information');
+    res.status(500);
+  }
+};
+
+module.exports = { registerUser, loginUser, getUserInfo };
