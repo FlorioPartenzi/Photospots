@@ -1,6 +1,10 @@
 const { Router } = require('express');
 const { registerUser, loginUser, getUserInfo } = require('./controller/index');
-const { postNewPlace } = require('./controller/places');
+const {
+  postNewPlace,
+  getAllPlaces,
+  getPlacesByUser,
+} = require('./controller/places');
 
 const router = new Router();
 
@@ -9,5 +13,7 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/profile', getUserInfo);
 router.post('/newPlace', postNewPlace);
+router.get('/places', getAllPlaces);
+router.post('/placesByUser', getPlacesByUser);
 
 module.exports = router;
