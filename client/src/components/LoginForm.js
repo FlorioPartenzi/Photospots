@@ -1,20 +1,22 @@
 import { loginRequest } from '../utils/ApiService';
 import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../utils/firebase';
+import { useState } from 'react';
 
 function LoginForm() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  async function submitHandler(event) {
+  async function login(event) {
     event.preventDefault();
-
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-    const authenticated = await loginRequest(email, password);
-
-    if (authenticated) {
-      navigate('/profile');
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      console.log(user);
+    } catch (error) {
+      console.log('ERROR in RegisterForm: ', error);
     }
-
     event.target.email.value = '';
     event.target.password.value = '';
   }
@@ -22,7 +24,7 @@ function LoginForm() {
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={login}>
         <label>
           E-Mail
           <input
@@ -30,6 +32,9 @@ function LoginForm() {
             type={'email'}
             placeholder="user@email.gmx"
             required
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
           ></input>
         </label>
         <label>
@@ -39,6 +44,9 @@ function LoginForm() {
             type={'password'}
             placeholder="****"
             required
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
           ></input>
         </label>
         <button type="submit">log in</button>

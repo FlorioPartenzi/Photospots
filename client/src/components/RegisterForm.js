@@ -1,34 +1,32 @@
 import { registerRequest } from '../utils/ApiService';
 import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useState } from 'react';
+import { auth } from '../utils/firebase';
 
 function RegisterForm() {
   const navigate = useNavigate();
-  async function submitHandler(event) {
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+
+  const register = async (event) => {
     event.preventDefault();
-
-    const username = event.target.username.value;
-    const email = event.target.email.value;
-    const password = event.target.password.value;
-    const repPassword = event.target.repPassword.value;
-
-    if (password === repPassword) {
-      console.log(username, email, password, repPassword);
-      const newUser = await registerRequest(username, email, password);
-      if (newUser) {
-        navigate('/profile');
-      }
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
+      console.log(user);
+    } catch (error) {
+      console.log('ERROR in RegisterForm: ', error);
     }
-
-    event.target.username.value = '';
-    event.target.email.value = '';
-    event.target.password.value = '';
-    event.target.repPassword.value = '';
-  }
+  };
 
   return (
     <div>
       <h2>Register</h2>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={register}>
         <label>
           Username
           <input name="username" placeholder="Username" required></input>
@@ -40,6 +38,9 @@ function RegisterForm() {
             type={'email'}
             placeholder="user@email.gmx"
             required
+            onChange={(event) => {
+              setRegisterEmail(event.target.value);
+            }}
           ></input>
         </label>
         <label>
@@ -49,6 +50,9 @@ function RegisterForm() {
             type={'password'}
             placeholder="****"
             required
+            onChange={(event) => {
+              setRegisterPassword(event.target.value);
+            }}
           ></input>
         </label>
         <label>
