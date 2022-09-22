@@ -1,7 +1,9 @@
+import LocationForm from '../components/LocationForm';
+
 function Profile() {
   return (
     <>
-      <h1>You are now logged in</h1>
+      <LocationForm></LocationForm>
     </>
   );
 }
