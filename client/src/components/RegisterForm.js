@@ -3,21 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { auth } from '../utils/firebase';
+import { useDispatch } from 'react-redux';
+import { login } from '../features/user/userSlice';
 
 function RegisterForm() {
   const navigate = useNavigate();
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
+  const dispatch = useDispatch();
 
   const register = async (event) => {
     event.preventDefault();
     try {
-      const user = await createUserWithEmailAndPassword(
+      const response = await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
       );
-      console.log(user);
+      if (response.user.email) {
+        dispatch(login(null, response.user.email));
+      }
     } catch (error) {
       console.log('ERROR in RegisterForm: ', error);
     }

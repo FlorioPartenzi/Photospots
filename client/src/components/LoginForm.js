@@ -3,17 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../features/user/userSlice';
 
 function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
-  async function login(event) {
+  async function loginUser(event) {
     event.preventDefault();
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log(response.user.email);
+      if (response.user.email) {
+        dispatch(login(response.user.email));
+      }
     } catch (error) {
       console.log('ERROR in RegisterForm: ', error);
     }
@@ -24,7 +30,7 @@ function LoginForm() {
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={login}>
+      <form onSubmit={loginUser}>
         <label>
           E-Mail
           <input
