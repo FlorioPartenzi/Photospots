@@ -14,45 +14,46 @@ const registerUser = async function (req, res) {
         where: { email: req.body.email },
       });
       if (!userAllreadyInUse) {
-        await prisma.users.create(user);
+        const newUser = await prisma.users.create(user);
+        res.send(newUser);
         res.status(201);
-        res.send('registered User');
       } else {
+        res.send({ msg: 'user allready in use' });
         res.status(204);
-        res.send('user allready in use');
       }
     } else {
+      res.send({ msg: 'failed to register' });
       res.status(204);
-      res.send('failed to register');
     }
   } catch (error) {
     console.log('ERROR in controller/index.js at registerUser', error);
+    res.send({ msg: 'failed to register' });
     res.status(500);
-    res.send('failed to register');
   }
 };
 
 const loginUser = async function (req, res) {
+  console.log(req.body);
   try {
     if (req.body.email && req.body.password) {
       const user = await prisma.users.findUnique({
         where: { email: req.body.email },
       });
       if (user && user.password === req.body.password) {
+        res.send(user);
         res.status(200);
-        res.send('logged in user');
       } else {
+        res.send({ msg: 'wrong credentials' });
         res.status(204);
-        res.send('wrong credentials');
       }
     } else {
+      res.send({ msg: 'wrong credentials' });
       res.status(204);
-      res.send('wrong credentials');
     }
   } catch (error) {
     console.log('ERROR in controller/index.js at loginUser', error);
+    res.send({ msg: 'failed to log in' });
     res.status(500);
-    res.send('failed to log in');
   }
 };
 
@@ -66,8 +67,8 @@ const getUserInfo = async function (req, res) {
     res.send(user);
   } catch (error) {
     console.log('ERROR in controller/index.js at getUserInfo', error);
+    res.send({ msg: 'failed to load user information' });
     res.status(500);
-    res.send('failed to load user information');
   }
 };
 

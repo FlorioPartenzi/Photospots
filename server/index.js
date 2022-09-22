@@ -1,11 +1,17 @@
-const express = require('express');
 const morgan = require('morgan');
+const express = require('express');
+const cors = require('cors');
 const router = require('./router');
 const prisma = require('./model/index');
 
 const PORT = 3001;
 const app = express();
 
+// app.use((req, res, next) => {
+//   console.log(req.body);
+//   next();
+// });
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(router);
