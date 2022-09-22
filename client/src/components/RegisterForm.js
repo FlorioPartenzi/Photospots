@@ -11,7 +11,6 @@ function RegisterForm() {
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const dispatch = useDispatch();
-
   const register = async (event) => {
     event.preventDefault();
     try {
@@ -21,7 +20,8 @@ function RegisterForm() {
         registerPassword
       );
       if (response.user.email) {
-        dispatch(login(null, response.user.email));
+        dispatch(login(response.user.email));
+        navigate('/profile');
       }
     } catch (error) {
       console.log('ERROR in RegisterForm: ', error);

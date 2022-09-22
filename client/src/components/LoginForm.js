@@ -19,6 +19,7 @@ function LoginForm() {
       console.log(response.user.email);
       if (response.user.email) {
         dispatch(login(response.user.email));
+        navigate('/profile');
       }
     } catch (error) {
       console.log('ERROR in RegisterForm: ', error);

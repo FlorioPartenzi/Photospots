@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { storage } from '../utils/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 } from 'uuid';
+import { useSelector } from 'react-redux';
 
 function LocationForm() {
   const [image, setImage] = useState(null);
+  const user = useSelector((state) => state.user);
+  console.log('user', user);
 
   const submitHandler = async (event) => {
     event.preventDefault();
