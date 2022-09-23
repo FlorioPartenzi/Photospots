@@ -31,7 +31,13 @@ export async function registerRequest(name, email, idToken) {
 export async function postNewLocation(
   title,
   description,
-  address,
+  housenumber,
+  street,
+  city,
+  postcode,
+  country,
+  lon,
+  lat,
   imgUrl,
   idToken
 ) {
@@ -41,7 +47,13 @@ export async function postNewLocation(
     body: JSON.stringify({
       title: title,
       description: description,
-      address: address,
+      housenumber: housenumber,
+      street: street,
+      city: city,
+      postcode: postcode,
+      country: country,
+      lon: lon,
+      lat: lat,
       imgUrl: imgUrl,
     }),
   };
@@ -50,5 +62,17 @@ export async function postNewLocation(
   ).json();
 
   if (location) return location;
+  return null;
+}
+
+export async function getAllLocations(idToken) {
+  const requestOptions = {
+    method: 'GET',
+    headers: { authToken: idToken },
+  };
+  const allLocations = await (
+    await fetch(`${SEVRER_BASE_URL}/places`, requestOptions)
+  ).json();
+  if (allLocations) return allLocations;
   return null;
 }
