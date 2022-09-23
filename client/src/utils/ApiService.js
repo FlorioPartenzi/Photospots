@@ -27,3 +27,28 @@ export async function registerRequest(name, email, idToken) {
   if (user.id) return user;
   return null;
 }
+
+export async function postNewLocation(
+  title,
+  description,
+  address,
+  imgUrl,
+  idToken
+) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { authToken: idToken, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      title: title,
+      description: description,
+      address: address,
+      imgUrl: imgUrl,
+    }),
+  };
+  const location = await (
+    await fetch(`${SEVRER_BASE_URL}/newPlace`, requestOptions)
+  ).json();
+
+  if (location) return location;
+  return null;
+}

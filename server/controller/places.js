@@ -3,13 +3,14 @@ const prisma = require('../model/index');
 const postNewPlace = async function (req, res) {
   try {
     const place = await prisma.users.update({
-      where: { email: req.body.email },
+      where: { email: req.email },
       data: {
         places: {
           create: {
             title: req.body.title,
             address: req.body.address,
             description: req.body.description,
+            imgUrl: req.body.imgUrl,
           },
         },
       },

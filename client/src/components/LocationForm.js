@@ -3,6 +3,8 @@ import { storage } from '../utils/firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { useSelector } from 'react-redux';
+import { auth } from '../utils/firebase';
+import { postNewLocation } from '../utils/ApiService';
 
 function LocationForm() {
   const [image, setImage] = useState(null);
@@ -13,15 +15,20 @@ function LocationForm() {
     event.preventDefault();
     if (image == null) return;
     const imageRef = ref(storage, `images/${image.name + v4()}`);
-    const uploadedImage = await uploadBytes(imageRef, image);
+    const title = event.target.title.value;
+    const description = event.target.description.value;
+    const address = event.target.address.value;
+    await uploadBytes(imageRef, image);
     const imgUrl = await getDownloadURL(imageRef);
+    const idToken = await auth.currentUser.getIdToken(true);
 
-    const newLocation = {
-      title: event.target.title.value,
-      description: event.target.description.value,
-      address: event.target.address.value,
-      imgUrl: imgUrl,
-    };
+    const newLocation = await postNewLocation(
+      title,
+      description,
+      address,
+      imgUrl,
+      idToken
+    );
     console.log(newLocation);
   };
 
