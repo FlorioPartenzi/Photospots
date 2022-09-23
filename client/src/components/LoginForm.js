@@ -39,6 +39,7 @@ function LoginForm() {
           <input
             name="email"
             type={'email'}
+            autoComplete="email"
             placeholder="user@email.gmx"
             required
             onChange={(event) => {
@@ -51,6 +52,7 @@ function LoginForm() {
           <input
             name="password"
             type={'password'}
+            autoComplete="current-password"
             placeholder="****"
             required
             onChange={(event) => {

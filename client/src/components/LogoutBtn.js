@@ -10,7 +10,6 @@ function LogoutBtn() {
   const logoutUser = async () => {
     await signOut(auth);
     dispatch(logout());
-    console.log('log out you F***');
     navigate('/');
   };
   return (

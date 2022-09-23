@@ -22,11 +22,10 @@ function RegisterForm() {
       );
       const idToken = await auth.currentUser.getIdToken(true);
       const response = await registerRequest(
-        event.target.name.value,
+        event.target.username.value,
         registerEmail,
         idToken
       );
-      console.log(event.target.name.value);
       if (response.user.email) {
         dispatch(login(response.user.email));
         navigate('/profile');
@@ -42,13 +41,19 @@ function RegisterForm() {
       <form onSubmit={register}>
         <label>
           Username
-          <input name="username" placeholder="Username" required></input>
+          <input
+            name="username"
+            autoComplete="username"
+            placeholder="Username"
+            required
+          ></input>
         </label>
         <label>
           E-Mail
           <input
             name="email"
             type={'email'}
+            autoComplete="eamil"
             placeholder="user@email.gmx"
             required
             onChange={(event) => {
@@ -61,6 +66,7 @@ function RegisterForm() {
           <input
             name="password"
             type={'password'}
+            autoComplete="new-password"
             placeholder="****"
             required
             onChange={(event) => {
@@ -73,6 +79,7 @@ function RegisterForm() {
           <input
             name="repPassword"
             type={'password'}
+            autoComplete="new-password"
             placeholder="****"
             required
           ></input>

@@ -8,11 +8,6 @@ const { FIREBASE_SERVICE_ACCOUNT } = process.env;
 
 const PORT = 3001;
 const app = express();
-
-// app.use((req, res, next) => {
-//   console.log(req.body);
-//   next();
-// });
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
