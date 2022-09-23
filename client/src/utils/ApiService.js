@@ -1,10 +1,9 @@
 import { SEVRER_BASE_URL } from './utils';
 
-export async function loginRequest(email, password) {
+export async function loginRequest(idToken) {
   const requestOptions = {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: email, password: password }),
+    headers: { AuthToken: idToken },
   };
 
   const user = await (

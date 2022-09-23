@@ -16,8 +16,12 @@ function LoginForm() {
     event.preventDefault();
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response.user.email);
-      if (response.user.email) {
+      console.log(auth.currentUser);
+
+      if (auth.currentUser) {
+        const idToken = await auth.currentUser.getIdToken(true);
+        const response = await loginRequest(idToken);
+        console.log(response);
         dispatch(login(response.user.email));
         navigate('/profile');
       }
