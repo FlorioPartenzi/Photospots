@@ -6,7 +6,7 @@ import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
 import { login } from '../features/user/userSlice';
 
-function RegisterForm() {
+function RegisterForm({ setToggleLogin }) {
   const navigate = useNavigate();
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
@@ -36,10 +36,18 @@ function RegisterForm() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={register}>
-        <label>
+    <div className="formContainer">
+      <h2 style={{ marginBottom: '0.5vh' }}>Register</h2>
+      <div
+        onClick={() => {
+          setToggleLogin(true);
+        }}
+        className="toggleLogin"
+      >
+        Log in instead
+      </div>
+      <form onSubmit={register} className="form">
+        <label className="formInputLabel">
           Username
           <input
             name="username"
@@ -48,7 +56,7 @@ function RegisterForm() {
             required
           ></input>
         </label>
-        <label>
+        <label className="formInputLabel">
           E-Mail
           <input
             name="email"
@@ -61,7 +69,7 @@ function RegisterForm() {
             }}
           ></input>
         </label>
-        <label>
+        <label className="formInputLabel">
           Password
           <input
             name="password"
@@ -74,7 +82,7 @@ function RegisterForm() {
             }}
           ></input>
         </label>
-        <label>
+        <label className="formInputLabel">
           repeat Password
           <input
             name="repPassword"
@@ -84,7 +92,9 @@ function RegisterForm() {
             required
           ></input>
         </label>
-        <button type="submit">register</button>
+        <button style={{ marginTop: '2vh' }} type="submit">
+          register
+        </button>
       </form>
     </div>
   );

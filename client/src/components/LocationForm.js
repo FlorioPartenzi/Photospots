@@ -79,10 +79,10 @@ function LocationForm() {
   }, []);
 
   return (
-    <>
+    <div className="formContainer">
       <h2>add Photospot</h2>
-      <form onSubmit={submitHandler}>
-        <label>
+      <form onSubmit={submitHandler} className="form">
+        <label className="formInputLabel">
           Title
           <input
             name="title"
@@ -91,18 +91,18 @@ function LocationForm() {
             required
           ></input>
         </label>
-        <label>
+        <label className="formInputLabel">
           description
-          <input
+          <textarea
             name="description"
-            type={'text'}
-            required
-            minLength="4"
-            maxLength="256"
             placeholder="description"
-          ></input>
+            rows={5}
+            cols={64}
+            maxLength="256"
+            required
+          ></textarea>
         </label>
-        <label>
+        <label className="formInputLabel">
           address
           <input
             name="address"
@@ -127,21 +127,26 @@ function LocationForm() {
             ))}
           </ul>
         </label>
-        <input
-          type={'file'}
-          name="image"
-          accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp"
-          onChange={(event) => {
-            setImage(event.target.files[0]);
-          }}
-          required
-        ></input>
-        <label>
-          submit
+        <label className="formInputLabel">
+          {' '}
+          image
+          <input
+            type={'file'}
+            name="image"
+            accept="image/apng, image/avif, image/gif, image/jpeg, image/png, image/svg+xml, image/webp"
+            onChange={(event) => {
+              setImage(event.target.files[0]);
+            }}
+            required
+            className="imgInput"
+          ></input>
+          <div className="fakeImgInput">add image</div>
+        </label>
+        <label className="formInputLabel">
           <button type="submit">Add Photospot</button>
         </label>
       </form>
-    </>
+    </div>
   );
 }
 

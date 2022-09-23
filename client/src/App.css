@@ -1,0 +1,65 @@
+:root {
+  --p1-color: rgb(219, 22, 47);
+  --p2-color: rgb(4, 73, 98);
+  --nb-color: rgb(239, 240, 240);
+  --nm-color: rgb(174, 173, 174);
+  --nd-color: rgb(5, 5, 23);
+}
+
+body {
+  margin: 0%;
+  background-color: var(--nb-color);
+  color: var(--p2-color);
+}
+input {
+  border-style: none;
+  margin: 1vh 1vw;
+}
+button {
+  border-style: none;
+  border-radius: 20px;
+  background-color: var(--p1-color);
+  padding: 2pt 4pt;
+  margin: 1vh 1vw;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+  border-radius: 16px;
+  text-align: center;
+  width: max-content;
+  margin: 2vh 2vw;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.formInputLabel {
+  padding-left: 2vw;
+  padding-right: 2vw;
+  display: flex;
+  flex-direction: column;
+}
+.toggleLogin {
+  color: var(--p1-color);
+  margin-top: 0%;
+  margin-bottom: 2.5vh;
+  font-size: small;
+}
+.imgInput {
+  display: none;
+}
+.fakeImgInput {
+  width: fit-content;
+  border-style: none;
+  border-radius: 20px;
+  background-color: var(--p1-color);
+  font-size: smaller;
+  padding: 2pt 4pt;
+  margin: 1vh 1vw;
+  color: var(--nd-color);
+  align-self: center;
+}

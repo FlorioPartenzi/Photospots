@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../features/user/userSlice';
 
-function LoginForm() {
+function LoginForm({ setToggleLogin }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,10 +31,18 @@ function LoginForm() {
   }
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={loginUser}>
-        <label>
+    <div className="formContainer">
+      <h2 style={{ marginBottom: '0.5vh' }}>Log In</h2>
+      <div
+        onClick={() => {
+          setToggleLogin(false);
+        }}
+        className="toggleLogin"
+      >
+        register instead
+      </div>
+      <form onSubmit={loginUser} className="form">
+        <label className="formInputLabel">
           E-Mail
           <input
             name="email"
@@ -47,7 +55,7 @@ function LoginForm() {
             }}
           ></input>
         </label>
-        <label>
+        <label className="formInputLabel">
           Password
           <input
             name="password"
@@ -60,7 +68,9 @@ function LoginForm() {
             }}
           ></input>
         </label>
-        <button type="submit">log in</button>
+        <button style={{ marginTop: '2vh' }} type="submit">
+          log in
+        </button>
       </form>
     </div>
   );
