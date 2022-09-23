@@ -34,8 +34,8 @@ async function checkAuth(req, res, next) {
   if (req.headers.authtoken) {
     try {
       const auth = await admin.auth().verifyIdToken(req.headers.authtoken);
-      console.log(auth);
       if (auth) {
+        req.email = auth.email;
         next();
       }
     } catch (error) {

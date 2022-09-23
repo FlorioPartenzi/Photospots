@@ -11,14 +11,22 @@ function RegisterForm() {
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const dispatch = useDispatch();
+
   const register = async (event) => {
     event.preventDefault();
     try {
-      const response = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
       );
+      const idToken = await auth.currentUser.getIdToken(true);
+      const response = await registerRequest(
+        event.target.name.value,
+        registerEmail,
+        idToken
+      );
+      console.log(event.target.name.value);
       if (response.user.email) {
         dispatch(login(response.user.email));
         navigate('/profile');
@@ -69,7 +77,7 @@ function RegisterForm() {
             required
           ></input>
         </label>
-        <button type="submit">log in</button>
+        <button type="submit">register</button>
       </form>
     </div>
   );

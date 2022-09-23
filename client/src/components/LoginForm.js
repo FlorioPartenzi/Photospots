@@ -15,18 +15,20 @@ function LoginForm() {
   async function loginUser(event) {
     event.preventDefault();
     try {
-      const response = await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password);
       console.log(auth.currentUser);
 
       if (auth.currentUser) {
         const idToken = await auth.currentUser.getIdToken(true);
         const response = await loginRequest(idToken);
+        console.log(idToken);
         console.log(response);
-        dispatch(login(response.user.email));
+        dispatch(login(response.email));
+        console.log('got to navigate');
         navigate('/profile');
       }
     } catch (error) {
-      console.log('ERROR in RegisterForm: ', error);
+      console.log('ERROR in LoginForm: ', error);
     }
     event.target.email.value = '';
     event.target.password.value = '';
