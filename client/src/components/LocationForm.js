@@ -116,7 +116,7 @@ function LocationForm() {
             }}
             value={address}
           ></input>
-          <ul>
+          <ul className="formInputProposal">
             {addressPorposal.map((location, i) => (
               <li key={i}>
                 <LocationProposal

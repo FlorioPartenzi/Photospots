@@ -7,6 +7,7 @@ function LocationProposal({ location, setAddress }) {
       onClick={() => {
         setAddress(locationProposal);
       }}
+      className="formInputProposalBTN"
     >
       {locationProposal}
     </button>

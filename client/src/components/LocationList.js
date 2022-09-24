@@ -17,7 +17,7 @@ function LocationList() {
   }, []);
 
   return (
-    <ul>
+    <ul className="photospotsListElement">
       {locations.map((location, i) => (
         <li key={i}>
           <Location location={location}></Location>

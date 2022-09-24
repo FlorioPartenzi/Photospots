@@ -21,6 +21,20 @@ button {
   background-color: var(--p1-color);
   padding: 2pt 4pt;
   margin: 1vh 1vw;
+  color: var(--nb-color);
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 20px;
+  margin: 0.5vh 1vw;
+  background-color: var(--p2-color);
+  color: var(--nb-color);
+}
+
+.Mainpage {
+  display: flex;
+  justify-content: space-between;
 }
 
 .formContainer {
@@ -30,6 +44,7 @@ button {
   border-radius: 16px;
   text-align: center;
   width: max-content;
+  height: max-content;
   margin: 2vh 2vw;
 }
 
@@ -43,6 +58,19 @@ button {
   display: flex;
   flex-direction: column;
 }
+.formInputProposal {
+  list-style: none;
+  align-self: flex-start;
+  text-align: start;
+  padding-left: 0%;
+  margin: 0%;
+}
+.formInputProposalBTN {
+  background-color: var(--nm-color);
+  margin: 0.4vh 1vw;
+  border-radius: 5px;
+}
+
 .toggleLogin {
   color: var(--p1-color);
   margin-top: 0%;
@@ -51,6 +79,7 @@ button {
 }
 .imgInput {
   display: none;
+  width: min-content;
 }
 .fakeImgInput {
   width: fit-content;
@@ -60,6 +89,44 @@ button {
   font-size: smaller;
   padding: 2pt 4pt;
   margin: 1vh 1vw;
-  color: var(--nd-color);
+  color: var(--nb-color);
   align-self: center;
+}
+
+.photospotsListElement {
+  list-style: none;
+  padding-left: 0%;
+  margin: 2vh 2vw;
+  width: fit-content;
+  margin: 1vw;
+}
+
+.photospot {
+  border-style: solid;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  width: 80vw;
+  max-width: 800px;
+  margin-bottom: 2vh;
+}
+.photospotImage {
+  border-radius: 20px;
+  margin: 1vh 0.5vw;
+  object-fit: cover;
+  height: 20vh;
+  width: 20vh;
+}
+.photospotInfoContainer {
+  margin: 0.9vh 0.5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.photospotInfoTitle {
+  margin-top: 0vh;
+}
+.photosptInfoAddress {
+  justify-self: flex-start;
+  margin: 0%;
 }
