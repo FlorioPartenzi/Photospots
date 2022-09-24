@@ -1,31 +1,39 @@
 import { SEVRER_BASE_URL } from './utils';
 
 export async function loginRequest(idToken) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { authToken: idToken },
-  };
+  try {
+    const requestOptions = {
+      method: 'POST',
+      headers: { authToken: idToken },
+    };
 
-  const user = await (
-    await fetch(`${SEVRER_BASE_URL}/login`, requestOptions)
-  ).json();
+    const user = await (
+      await fetch(`${SEVRER_BASE_URL}/login`, requestOptions)
+    ).json();
 
-  if (user.id) return user;
-  return false;
+    if (user.id) return user;
+    return false;
+  } catch (error) {
+    console.log('ERROR in ApiService while fetching login request: ', error);
+  }
 }
 
 export async function registerRequest(name, email, idToken) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { authToken: idToken, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: name, email: email }),
-  };
-  const user = await (
-    await fetch(`${SEVRER_BASE_URL}/register`, requestOptions)
-  ).json();
+  try {
+    const requestOptions = {
+      method: 'POST',
+      headers: { authToken: idToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, email: email }),
+    };
+    const user = await (
+      await fetch(`${SEVRER_BASE_URL}/register`, requestOptions)
+    ).json();
 
-  if (user.id) return user;
-  return null;
+    if (user.id) return user;
+    return null;
+  } catch (error) {
+    console.log('ERROR in ApiService while fetching register request: ', error);
+  }
 }
 
 export async function postNewLocation(
@@ -41,38 +49,49 @@ export async function postNewLocation(
   imgUrl,
   idToken
 ) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { authToken: idToken, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      title: title,
-      description: description,
-      housenumber: housenumber,
-      street: street,
-      city: city,
-      postcode: postcode,
-      country: country,
-      lon: lon,
-      lat: lat,
-      imgUrl: imgUrl,
-    }),
-  };
-  const location = await (
-    await fetch(`${SEVRER_BASE_URL}/newPlace`, requestOptions)
-  ).json();
+  try {
+    const requestOptions = {
+      method: 'POST',
+      headers: { authToken: idToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: title,
+        description: description,
+        housenumber: housenumber,
+        street: street,
+        city: city,
+        postcode: postcode,
+        country: country,
+        lon: lon,
+        lat: lat,
+        imgUrl: imgUrl,
+      }),
+    };
+    const location = await (
+      await fetch(`${SEVRER_BASE_URL}/newPlace`, requestOptions)
+    ).json();
 
-  if (location) return location;
-  return null;
+    if (location) return location;
+    return null;
+  } catch (error) {
+    console.log('ERROR in ApiService while fetching post new Place: ', error);
+  }
 }
 
 export async function getAllLocations(idToken) {
-  const requestOptions = {
-    method: 'GET',
-    headers: { authToken: idToken },
-  };
-  const allLocations = await (
-    await fetch(`${SEVRER_BASE_URL}/places`, requestOptions)
-  ).json();
-  if (allLocations) return allLocations;
-  return null;
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: { authToken: idToken },
+    };
+    const allLocations = await (
+      await fetch(`${SEVRER_BASE_URL}/places`, requestOptions)
+    ).json();
+    if (allLocations) return allLocations;
+    return null;
+  } catch (error) {
+    console.log(
+      'ERROR in ApiService while fetching get all locations: ',
+      error
+    );
+  }
 }

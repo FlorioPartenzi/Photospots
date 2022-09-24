@@ -17,7 +17,7 @@ const registerUser = async function (req, res) {
         res.send(newUser);
         res.status(201);
       } else {
-        res.send({ msg: 'user allready in use' });
+        res.send({ msg: 'user already in use' });
         res.status(204);
       }
     } else {

@@ -36,7 +36,12 @@ button {
   display: flex;
   justify-content: space-between;
 }
-
+.mapContainer {
+  height: 40vh;
+  border-radius: 16px;
+  border-style: solid;
+  margin: 2vh 2vw;
+}
 .formContainer {
   display: flex;
   flex-direction: column;

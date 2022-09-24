@@ -1,14 +1,15 @@
-import Location from '../components/Location';
 import LocationForm from '../components/LocationForm';
 import LocationList from '../components/LocationList';
-import LogoutBtn from '../components/LogoutBtn';
-import Navbar from '../components/Navbar';
+import Map from '../components/Map';
 
 function Profile() {
   return (
     <div className="Mainpage">
       <LocationList></LocationList>
-      <LocationForm></LocationForm>
+      <div>
+        <LocationForm></LocationForm>
+        <Map></Map>
+      </div>
     </div>
   );
 }

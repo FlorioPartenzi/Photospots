@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { uploadImageToFirebase } from '../utils/FirebaseService';
 import {
   getAutocompleteAdressByText,
-  getCompleteAdsress,
+  getCompleteAddress,
 } from '../utils/GeoapifyService';
 
 function LocationForm() {
@@ -27,7 +27,7 @@ function LocationForm() {
     //settign the values and fetching a whole address and corresponding coordinates from the geoapify API
     const address = event.target.address.value;
     const idToken = await auth.currentUser.getIdToken(true);
-    const response = await getCompleteAdsress(address);
+    const response = await getCompleteAddress(address);
     const housenumber = response.features[0].properties.housenumber || '';
     const street = response.features[0].properties.street || '';
     const city = response.features[0].properties.city || '';
@@ -77,7 +77,6 @@ function LocationForm() {
       navigate('/');
     }
   }, []);
-
   return (
     <div className="formContainer">
       <h2>add Photospot</h2>
