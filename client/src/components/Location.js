@@ -1,10 +1,28 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { addPinPosition } from '../features/pinPosition/pinPositionSlice';
+import { updateViewPosition } from '../features/viewPosition/viewPositionSlice';
 import { createAddressString } from '../utils/locationUtils';
 
 function Location({ location }) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(addPinPosition([location.lon, location.lat]));
+  }, []);
   const address = createAddressString(location);
+
+  const goToPos = () => {
+    dispatch(updateViewPosition([location.lon, location.lat]));
+  };
+
   return (
-    <div className="photospot">
+    <div
+      className="photospot"
+      onClick={() => {
+        goToPos();
+      }}
+    >
       <img src={location.imgUrl} className="photospotImage"></img>
       <div className="photospotInfoContainer">
         <div>

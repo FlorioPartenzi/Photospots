@@ -135,3 +135,29 @@ button {
   justify-self: flex-start;
   margin: 0%;
 }
+
+.marker {
+  background-color: var(--nd-color);
+  mask-image: url('../public/Pin_Solid.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  height: 2vh;
+  width: 2vh;
+}
+.userPosMarker {
+  background-color: var(--p1-color);
+  mask-image: url('../public/Pin_Solid.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 2vh;
+  width: 2vh;
+}
+
+.searchbar {
+  padding-left: 1vw;
+  padding-right: 1vw;
+  border-radius: 10px;
+  margin-top: 2.5vh;
+  padding: 0.5vh;
+}

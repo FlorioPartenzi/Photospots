@@ -7,7 +7,7 @@ export const positionSlice = createSlice({
   name: 'position',
   reducers: {
     updatePosition: (state, action) => {
-      state.position = [action.payload.lng, action.payload.lat];
+      state.position = [...action.payload];
     },
   },
 });

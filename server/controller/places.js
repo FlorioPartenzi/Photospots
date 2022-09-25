@@ -58,4 +58,28 @@ const getPlacesByUser = async function (req, res) {
   }
 };
 
-module.exports = { postNewPlace, getAllPlaces, getPlacesByUser };
+const getPlacesBySearch = async function (req, res) {
+  try {
+    const searchterm = req.params.searchterm;
+    if (searchterm) {
+      const places = await prisma.places.findMany({
+        where: {
+          title: { contains: searchterm },
+        },
+      });
+      res.status(200);
+      res.send(places);
+    }
+  } catch (error) {
+    console.log('ERROR in controller/places.js at getPlacesBySearch', error);
+    res.status(500);
+    res.send('failed to find new place');
+  }
+};
+
+module.exports = {
+  postNewPlace,
+  getAllPlaces,
+  getPlacesByUser,
+  getPlacesBySearch,
+};

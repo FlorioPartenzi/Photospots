@@ -95,3 +95,25 @@ export async function getAllLocations(idToken) {
     );
   }
 }
+
+export async function getLocationsBySearch(searchterm, idToken) {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: { authToken: idToken },
+    };
+    const locations = await (
+      await fetch(
+        `${SEVRER_BASE_URL}/findPlacesbySearch/${searchterm}`,
+        requestOptions
+      )
+    ).json();
+    if (locations) return locations;
+    return null;
+  } catch (error) {
+    console.log(
+      'ERROR in ApiService while fetching locations by search: ',
+      error
+    );
+  }
+}
