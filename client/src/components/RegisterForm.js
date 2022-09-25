@@ -1,4 +1,4 @@
-import { registerRequest } from '../utils/ApiService';
+import { registerRequest } from '../Services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';

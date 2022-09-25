@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { createAddressString } from '../utils/locationUtils';
 
 function Location({ location }) {

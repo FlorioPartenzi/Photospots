@@ -7,3 +7,21 @@ export function createAddressString(location) {
   if (location.housenumber) address += location.housenumber + ' ';
   return address;
 }
+
+export const getUsersCurrentLocation = () =>
+  new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve(position);
+      },
+      (error) => {
+        console.log(error.message);
+        reject(error);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 1000,
+      }
+    );
+  });

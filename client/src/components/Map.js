@@ -10,7 +10,6 @@ function Map() {
   const coordinates = useSelector((state) => state.position).position;
 
   useEffect(() => {
-    console.log(coordinates);
     if (map.current) return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -18,6 +17,10 @@ function Map() {
       zoom: 7,
       center: coordinates,
     });
+
+    const marker = new mapboxgl.Marker()
+      .setLngLat([2.11, 41.43])
+      .addTo(map.current);
   }, []);
 
   return (

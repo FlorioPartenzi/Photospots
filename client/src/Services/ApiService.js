@@ -1,4 +1,4 @@
-import { SEVRER_BASE_URL } from './utils';
+import { SEVRER_BASE_URL } from '../utils/utils';
 
 export async function loginRequest(idToken) {
   try {

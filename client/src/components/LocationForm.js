@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
 import { auth } from '../utils/firebase';
-import { postNewLocation } from '../utils/ApiService';
+import { postNewLocation } from '../Services/ApiService';
 import LocationProposal from './LocationProposal';
 import { useNavigate } from 'react-router-dom';
-import { uploadImageToFirebase } from '../utils/FirebaseService';
+import { uploadImageToFirebase } from '../Services/FirebaseService';
+import Compressor from 'compressorjs';
 import {
   getAutocompleteAdressByText,
   getCompleteAddress,
-} from '../utils/GeoapifyService';
+} from '../Services/GeoapifyService';
 
 function LocationForm() {
   const [image, setImage] = useState(null);
+  const [compressedImage, setCompressedImage] = useState(null);
   const [addressPorposal, setAddressProposal] = useState([]);
   const [address, setAddress] = useState('');
   const [timer, setTimer] = useState(null);
@@ -22,7 +24,7 @@ function LocationForm() {
 
     //uploading the image file to Firebase and fetching fore the URL
     if (image == null) return;
-    const imgUrl = await uploadImageToFirebase(image);
+    const imgUrl = await uploadImageToFirebase(compressedImage);
 
     //settign the values and fetching a whole address and corresponding coordinates from the geoapify API
     const address = event.target.address.value;
@@ -77,6 +79,24 @@ function LocationForm() {
       navigate('/');
     }
   }, []);
+
+  //compresses the image
+  useEffect(() => {
+    const compressImage = (image) => {
+      return new Compressor(image, {
+        quality: 0.6,
+        success: (compressedResult) => {
+          setCompressedImage(compressedResult);
+          return compressedResult;
+        },
+      });
+    };
+
+    if (image) {
+      compressImage(image);
+    }
+  }, [image]);
+
   return (
     <div className="formContainer">
       <h2>add Photospot</h2>

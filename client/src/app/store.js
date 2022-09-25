@@ -1,4 +1,4 @@
-import { configureStore, applyMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import userReducer from '../features/user/userSlice';
 import positionReducer from '../features/postition/positionSlice';
 
