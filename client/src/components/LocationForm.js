@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { auth } from '../utils/firebase';
 import { postNewLocation } from '../Services/ApiService';
 import LocationProposal from './LocationProposal';
-import { useNavigate } from 'react-router-dom';
 import { uploadImageToFirebase } from '../Services/FirebaseService';
 import Compressor from 'compressorjs';
 import {
@@ -16,8 +15,6 @@ function LocationForm() {
   const [addressPorposal, setAddressProposal] = useState([]);
   const [address, setAddress] = useState('');
   const [timer, setTimer] = useState(null);
-
-  const navigate = useNavigate();
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -66,21 +63,20 @@ function LocationForm() {
     setAddress(address);
     clearTimeout(timer);
     const newTimer = setTimeout(async () => {
-      const addressPorposalResponse = await getAutocompleteAdressByText(
-        address
-      );
-      const addressPorposal = await addressPorposalResponse.json();
-      const newAddressPorposal = addressPorposal.features;
-      setAddressProposal(newAddressPorposal);
+      if (address) {
+        const addressPorposalResponse = await getAutocompleteAdressByText(
+          address
+        );
+        const addressPorposal = await addressPorposalResponse.json();
+        const newAddressPorposal = addressPorposal.features;
+        console.log(newAddressPorposal);
+        setAddressProposal(newAddressPorposal);
+      } else {
+        setAddressProposal([]);
+      }
     }, 500);
     setTimer(newTimer);
   }
-
-  useEffect(() => {
-    if (!auth.currentUser) {
-      navigate('/');
-    }
-  }, []);
 
   //compresses the image
   useEffect(() => {
@@ -101,7 +97,7 @@ function LocationForm() {
 
   return (
     <div className="formContainer">
-      <h2>add Photospot</h2>
+      <h2 className="formTitle">add Photospot</h2>
       <form onSubmit={submitHandler} className="form">
         <label className="formInputLabel">
           Title
@@ -112,7 +108,7 @@ function LocationForm() {
             required
           ></input>
         </label>
-        <label className="formInputLabel">
+        <label className="formInputLabel descriptionInput">
           description
           <textarea
             name="description"

@@ -8,9 +8,11 @@ import { updatePosition } from '../app/features/postition/positionSlice';
 import { getLocationsByDistance } from '../Services/ApiService';
 import { getUsersCurrentLocation } from '../utils/locationUtils';
 import { setLocationList } from '../app/features/locationList/locationListSlice';
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //fetch for user coordinates
   const setUserCoordinates = async () => {
@@ -29,6 +31,9 @@ function Profile() {
   };
 
   useEffect(() => {
+    if (!auth.currentUser) {
+      navigate('/');
+    }
     setUserCoordinates();
   }, []);
 
