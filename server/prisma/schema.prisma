@@ -8,17 +8,19 @@ datasource db {
 }
 
 model Users {
-  id     String   @id @default(auto()) @map("_id") @db.ObjectId
-  email  String   @unique
-  name   String
-  places Places[]
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  email    String   @unique
+  name     String
+  places   Places[] @relation("places")
+  placeIDs String[] @db.ObjectId
+  pinned   Places[] @relation("pinned", fields: [placeIDs], references: [id])
 }
 
 model Places {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String
-  user        Users  @relation(fields: [userId], references: [id])
+  user        Users    @relation("places", fields: [userId], references: [id])
   userId      String
   imgUrl      String
   housenumber String
@@ -28,4 +30,6 @@ model Places {
   country     String
   lon         Float
   lat         Float
+  pinnedId    String[] @db.ObjectId
+  pinnedBy    Users[]  @relation("pinned", fields: [pinnedId], references: [id])
 }

@@ -146,3 +146,38 @@ export async function getLocationsByDistance(lng, lat, idToken) {
     return { error: error };
   }
 }
+
+export async function putPinned(id, add, idToken) {
+  try {
+    const requestOptions = {
+      method: 'PUT',
+      headers: { authToken: idToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: id, add: add }),
+    };
+    const location = await (
+      await fetch(`${SEVRER_BASE_URL}/pinned`, requestOptions)
+    ).json();
+
+    if (location) return location;
+    return null;
+  } catch (error) {
+    console.log('ERROR in ApiService while fetching put pinned: ', error);
+    return { error: error };
+  }
+}
+export async function getPinned(idToken) {
+  try {
+    const requestOptions = {
+      method: 'get',
+      headers: { authToken: idToken },
+    };
+    const location = await (
+      await fetch(`${SEVRER_BASE_URL}/pinned`, requestOptions)
+    ).json();
+    if (location) return location[0].pinned;
+    return null;
+  } catch (error) {
+    console.log('ERROR in ApiService while fetching put pinned: ', error);
+    return { error: error };
+  }
+}

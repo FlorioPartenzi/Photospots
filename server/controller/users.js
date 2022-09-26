@@ -1,3 +1,4 @@
+const { places } = require('../model/index');
 const prisma = require('../model/index');
 
 const registerUser = async function (req, res) {
@@ -71,4 +72,67 @@ const getUserInfo = async function (req, res) {
   }
 };
 
-module.exports = { registerUser, loginUser, getUserInfo };
+const putUserPinned = async function (req, res) {
+  try {
+    const place = await prisma.places.findFirst({
+      where: { id: req.body.id },
+    });
+    const user = await prisma.users.findUnique({
+      where: { email: req.email },
+    });
+    if (req.body.add) {
+      const userId = await prisma.users.update({
+        where: { email: req.email },
+        data: {
+          pinned: {
+            connect: {
+              id: place.id,
+            },
+          },
+        },
+      });
+      res.status(201);
+      res.send(userId);
+    } else {
+      const userId = await prisma.users.update({
+        where: { email: req.email },
+        data: {
+          pinned: {
+            disconnect: {
+              id: place.id,
+            },
+          },
+        },
+      });
+      res.status(204);
+      res.send(userId);
+    }
+  } catch (error) {
+    console.log('ERROR in controller/index.js at putUserPinned', error);
+    res.status(500);
+    res.send({ msg: 'failed to update user information' });
+  }
+};
+
+const getUserPinned = async function (req, res) {
+  try {
+    const places = await prisma.users.findMany({
+      where: { email: req.email },
+      select: { pinned: true },
+    });
+    res.status(200);
+    res.send(places);
+  } catch (error) {
+    console.log('ERROR in controller/index.js at getUserPinned', error);
+    res.status(500);
+    res.send({ msg: 'failed to get user pinned places' });
+  }
+};
+
+module.exports = {
+  registerUser,
+  loginUser,
+  getUserInfo,
+  putUserPinned,
+  getUserPinned,
+};

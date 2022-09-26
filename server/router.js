@@ -1,5 +1,11 @@
 const { Router } = require('express');
-const { registerUser, loginUser, getUserInfo } = require('./controller/users');
+const {
+  registerUser,
+  loginUser,
+  getUserInfo,
+  putUserPinned,
+  getUserPinned,
+} = require('./controller/users');
 const {
   postNewPlace,
   getAllPlaces,
@@ -19,5 +25,7 @@ router.get('/places', getAllPlaces);
 router.post('/placesByUser', getPlacesByUser);
 router.get('/findPlacesbySearch/:searchterm', getPlacesBySearch);
 router.get('/findPlacesbyDistance/:lng/:lat', getPlacesByDistance);
+router.put('/pinned', putUserPinned);
+router.get('/pinned', getUserPinned);
 
 module.exports = router;

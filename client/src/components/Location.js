@@ -1,37 +1,61 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addPinPosition } from '../app/features/pinPosition/pinPositionSlice';
 import { updateViewPosition } from '../app/features/viewPosition/viewPositionSlice';
 import { createAddressString } from '../utils/locationUtils';
 import { ReactComponent as Pin_Outline } from '../Pin_Solid.svg';
+import { auth } from '../utils/firebase';
 import {
   addToPinnedList,
   removeFromPinnedList,
 } from '../app/features/pinnedList/pinnedListSlice';
+import { getPinned, putPinned } from '../Services/ApiService';
 
 function Location({ location }) {
   const [isPinned, setIsPinned] = useState(false);
   const [classNames, setClassName] = useState('pin');
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(addPinPosition([location.lon, location.lat]));
-  }, []);
+
   const address = createAddressString(location);
   const goToPos = () => {
     dispatch(updateViewPosition([location.lon, location.lat]));
   };
+
   const togglePinned = () => {
-    if (isPinned) {
-      setClassName('pin');
-      dispatch(removeFromPinnedList(location));
-      setIsPinned(false);
-    } else {
-      setClassName('pin pinned');
-      dispatch(addToPinnedList(location));
-      setIsPinned(true);
-    }
+    const setPin = async () => {
+      const idToken = await auth.currentUser.getIdToken(true);
+      if (isPinned) {
+        setClassName('pin');
+        dispatch(removeFromPinnedList(location));
+        putPinned(location.id, false, idToken);
+        setIsPinned(false);
+      } else {
+        setClassName('pin pinned');
+        dispatch(addToPinnedList(location));
+        putPinned(location.id, true, idToken);
+        setIsPinned(true);
+      }
+    };
+    setPin();
   };
+
+  useEffect(() => {
+    dispatch(addPinPosition([location.lon, location.lat]));
+    const pinMe = async () => {
+      const idToken = await auth.currentUser.getIdToken(true);
+      const pinned = await getPinned(idToken);
+      const isPinned = pinned.some((pinned) => {
+        return pinned.id == location.id;
+      });
+      if (isPinned) {
+        setIsPinned(true);
+        setClassName('pin pinned');
+      }
+    };
+    pinMe();
+  }, []);
+
   return (
     <div
       className="photospot"

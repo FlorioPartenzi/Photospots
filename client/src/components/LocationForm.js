@@ -69,7 +69,6 @@ function LocationForm() {
         );
         const addressPorposal = await addressPorposalResponse.json();
         const newAddressPorposal = addressPorposal.features;
-        console.log(newAddressPorposal);
         setAddressProposal(newAddressPorposal);
       } else {
         setAddressProposal([]);
