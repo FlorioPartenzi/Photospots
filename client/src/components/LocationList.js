@@ -1,5 +1,8 @@
 import Location from './Location';
-import { getAllLocations } from '../Services/ApiService';
+import {
+  getAllLocations,
+  getLocationsByDistance,
+} from '../Services/ApiService';
 import { useEffect, useState } from 'react';
 import { auth } from '../utils/firebase';
 import { useSelector } from 'react-redux';

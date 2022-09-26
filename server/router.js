@@ -5,6 +5,7 @@ const {
   getAllPlaces,
   getPlacesByUser,
   getPlacesBySearch,
+  getPlacesByDistance,
 } = require('./controller/places');
 
 const router = new Router();
@@ -17,5 +18,6 @@ router.post('/newPlace', postNewPlace);
 router.get('/places', getAllPlaces);
 router.post('/placesByUser', getPlacesByUser);
 router.get('/findPlacesbySearch/:searchterm', getPlacesBySearch);
+router.get('/findPlacesbyDistance/:lng/:lat', getPlacesByDistance);
 
 module.exports = router;

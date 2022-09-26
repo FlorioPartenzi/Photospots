@@ -23,7 +23,9 @@ function Location({ location }) {
         goToPos();
       }}
     >
-      <img src={location.imgUrl} className="photospotImage"></img>
+      <div>
+        <img src={location.imgUrl} className="photospotImage"></img>
+      </div>
       <div className="photospotInfoContainer">
         <div>
           <h2 className="photospotInfoTitle">{location.title}</h2>
