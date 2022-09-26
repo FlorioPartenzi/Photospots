@@ -1,11 +1,19 @@
 import { getLocationsBySearch } from '../Services/ApiService';
 import { auth } from '../utils/firebase';
+import { setLocationList } from '../features/locationList/locationListSlice';
+import { useDispatch } from 'react-redux';
 
 function Searchbar() {
+  const dispatch = useDispatch();
+
   const getLocations = async (event) => {
     const idToken = await auth.currentUser.getIdToken(true);
-    const response = await getLocationsBySearch(event.target.value, idToken);
-    console.log(response);
+    if (event.target.value) {
+      const response = await getLocationsBySearch(event.target.value, idToken);
+      dispatch(setLocationList(response));
+    } else {
+      dispatch(setLocationList([null]));
+    }
   };
   return (
     <div>

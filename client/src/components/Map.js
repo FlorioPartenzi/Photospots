@@ -16,7 +16,6 @@ function Map() {
   ).pinPosition;
 
   useEffect(() => {
-    console.log(coordinates);
     if (map.current) return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
@@ -37,7 +36,6 @@ function Map() {
   }, [coordinates]);
 
   useEffect(() => {
-    console.log(locationCoordinates);
     const createMarkerAt = (coordinates) => {
       const markerDiv = document.createElement('div');
       markerDiv.className = 'marker';
@@ -47,7 +45,6 @@ function Map() {
         .addTo(map.current);
     };
     locationCoordinates.map((location) => {
-      console.log(location);
       createMarkerAt(location);
     });
   }, [locationCoordinates]);

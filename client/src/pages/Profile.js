@@ -9,13 +9,13 @@ import { getUsersCurrentLocation } from '../utils/locationUtils';
 function Profile() {
   const dispatch = useDispatch();
 
-  //need to watch Rushabhs playlist https://www.youtube.com/watch?v=9boMnm5X9ak&list=PLC3y8-rFHvwheJHvseC3I0HuYI2f46oAK&ab_channel=Codevolution
   const setUserCoordinates = async () => {
     const response = await getUsersCurrentLocation();
     dispatch(
       updatePosition([response.coords.longitude, response.coords.latitude])
     );
   };
+
   useEffect(() => {
     setUserCoordinates();
   }, []);
