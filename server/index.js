@@ -1,16 +1,16 @@
 const morgan = require('morgan');
-const express = require('express');
+const Express = require('express');
 const cors = require('cors');
 const router = require('./router');
 const prisma = require('./model/index');
 const { checkAuth } = require('./middleweare/auth');
-const { FIREBASE_SERVICE_ACCOUNT } = process.env;
 
-const PORT = 3001;
-const app = express();
+const PORT = process.env.PORT;
+
+const app = Express();
 app.use(cors());
 app.use(morgan('dev'));
-app.use(express.json());
+app.use(Express.json());
 app.use('/', checkAuth);
 app.use(router);
 

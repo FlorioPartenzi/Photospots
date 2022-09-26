@@ -39,7 +39,7 @@ function LocationForm() {
     const lat = response.features[0].properties.lat;
 
     // creating the new location in the Database
-    const newLocation = await postNewLocation(
+    postNewLocation(
       event.target.title.value,
       event.target.description.value,
       housenumber,
@@ -66,9 +66,11 @@ function LocationForm() {
     setAddress(address);
     clearTimeout(timer);
     const newTimer = setTimeout(async () => {
-      let newAddressPorposal = await getAutocompleteAdressByText(address);
-      newAddressPorposal = await newAddressPorposal.json();
-      newAddressPorposal = newAddressPorposal.features;
+      const addressPorposalResponse = await getAutocompleteAdressByText(
+        address
+      );
+      const addressPorposal = await addressPorposalResponse.json();
+      const newAddressPorposal = addressPorposal.features;
       setAddressProposal(newAddressPorposal);
     }, 500);
     setTimer(newTimer);

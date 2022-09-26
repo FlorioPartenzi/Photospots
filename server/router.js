@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { registerUser, loginUser, getUserInfo } = require('./controller/index');
+const { registerUser, loginUser, getUserInfo } = require('./controller/users');
 const {
   postNewPlace,
   getAllPlaces,

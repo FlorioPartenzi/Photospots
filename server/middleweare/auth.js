@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const dotenv = require('dotenv').config();
 const {
   FIREBASE_SERVICE_ACCOUNT_TYPE,
   FIREBASE_SERVICE_ACCOUNT_PROJECT_ID,
@@ -25,7 +26,6 @@ const serviceAccount = {
     FIREBASE_SERVICE_ACCOUNT_AUTH_PROVIDER_X509_CERT_URL,
   client_x509_cert_url: FIREBASE_SERVICE_ACCOUNT_CLIENT_X509_CERT_URL,
 };
-
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });

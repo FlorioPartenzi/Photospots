@@ -1,6 +1,6 @@
 import { auth } from '../utils/firebase';
 import { signOut } from 'firebase/auth';
-import { logout } from '../features/user/userSlice';
+import { logout } from '../app/features/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 

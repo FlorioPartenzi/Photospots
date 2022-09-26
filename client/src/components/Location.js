@@ -1,8 +1,8 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addPinPosition } from '../features/pinPosition/pinPositionSlice';
-import { updateViewPosition } from '../features/viewPosition/viewPositionSlice';
+import { addPinPosition } from '../app/features/pinPosition/pinPositionSlice';
+import { updateViewPosition } from '../app/features/viewPosition/viewPositionSlice';
 import { createAddressString } from '../utils/locationUtils';
 
 function Location({ location }) {

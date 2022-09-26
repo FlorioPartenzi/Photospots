@@ -14,20 +14,20 @@ const registerUser = async function (req, res) {
       });
       if (!userAllreadyInUse) {
         const newUser = await prisma.users.create(user);
-        res.send(newUser);
         res.status(201);
+        res.send(newUser);
       } else {
-        res.send({ msg: 'user already in use' });
         res.status(204);
+        res.send({ msg: 'user already in use' });
       }
     } else {
-      res.send({ msg: 'failed to register' });
       res.status(204);
+      res.send({ msg: 'failed to register' });
     }
   } catch (error) {
     console.log('ERROR in controller/index.js at registerUser', error);
-    res.send({ msg: 'failed to register' });
     res.status(500);
+    res.send({ msg: 'failed to register' });
   }
 };
 
@@ -37,16 +37,16 @@ const loginUser = async function (req, res) {
       const user = await prisma.users.findUnique({
         where: { email: req.email },
       });
-      res.send(user);
       res.status(200);
+      res.send(user);
     } else {
-      res.send({ msg: 'wrong credentials' });
       res.status(204);
+      res.send({ msg: 'wrong credentials' });
     }
   } catch (error) {
     console.log('ERROR in controller/index.js at loginUser', error);
-    res.send({ msg: 'failed to log in' });
     res.status(500);
+    res.send({ msg: 'failed to log in' });
   }
 };
 
@@ -58,16 +58,16 @@ const getUserInfo = async function (req, res) {
         select: { name: true, email: true },
       });
 
-      res.send(user);
       res.status(200);
+      res.send(user);
     } else {
-      res.send({ msg: 'unauthorized' });
       res.status(204);
+      res.send({ msg: 'unauthorized' });
     }
   } catch (error) {
     console.log('ERROR in controller/index.js at getUserInfo', error);
-    res.send({ msg: 'failed to load user information' });
     res.status(500);
+    res.send({ msg: 'failed to load user information' });
   }
 };
 

@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../utils/firebase';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '../features/user/userSlice';
+import { login } from '../app/features/user/userSlice';
 
 function LoginForm({ setToggleLogin }) {
   const navigate = useNavigate();

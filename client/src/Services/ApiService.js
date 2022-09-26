@@ -1,4 +1,4 @@
-import { SEVRER_BASE_URL } from '../utils/utils';
+const SEVRER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL;
 
 export async function loginRequest(idToken) {
   try {
@@ -15,6 +15,7 @@ export async function loginRequest(idToken) {
     return false;
   } catch (error) {
     console.log('ERROR in ApiService while fetching login request: ', error);
+    return { error: error };
   }
 }
 
@@ -33,9 +34,11 @@ export async function registerRequest(name, email, idToken) {
     return null;
   } catch (error) {
     console.log('ERROR in ApiService while fetching register request: ', error);
+    return { error: error };
   }
 }
 
+//refractor to obj as argument!!!!
 export async function postNewLocation(
   title,
   description,
@@ -74,6 +77,7 @@ export async function postNewLocation(
     return null;
   } catch (error) {
     console.log('ERROR in ApiService while fetching post new Place: ', error);
+    return { error: error };
   }
 }
 
@@ -93,6 +97,7 @@ export async function getAllLocations(idToken) {
       'ERROR in ApiService while fetching get all locations: ',
       error
     );
+    return { error: error };
   }
 }
 
@@ -115,6 +120,7 @@ export async function getLocationsBySearch(searchterm, idToken) {
       'ERROR in ApiService while fetching locations by search: ',
       error
     );
+    return { error: error };
   }
 }
 
@@ -137,5 +143,6 @@ export async function getLocationsByDistance(lng, lat, idToken) {
       'ERROR in ApiService while fetching locations by search: ',
       error
     );
+    return { error: error };
   }
 }

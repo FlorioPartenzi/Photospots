@@ -81,16 +81,13 @@ const getPlacesByDistance = async function (req, res) {
   try {
     const lat = req.params.lat;
     const lng = req.params.lng;
-    console.log('COORDS: ', lat, lng);
     if (lat && lng) {
       let places = await prisma.places.findMany({});
       places = places.sort((a, b) => {
         const distanceA = Math.abs(lng - a.lon) + Math.abs(lat - a.lat);
         const distanceB = Math.abs(lng - b.lon) + Math.abs(lat - b.lat);
-        console.log(distanceA, distanceB);
         return distanceA - distanceB;
       });
-      console.log(places);
       res.status(200);
       res.send(places);
     }

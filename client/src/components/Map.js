@@ -51,6 +51,7 @@ function Map() {
 
   useEffect(() => {
     map.current.flyTo({
+      zoom: 10,
       center: centerCoordinates,
       essential: true, // this animation is considered essential with respect to prefers-reduced-motion
     });

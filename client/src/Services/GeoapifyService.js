@@ -9,6 +9,7 @@ export async function getAutocompleteAdressByText(address) {
       'ERROR while fetching getAutocompleteAddressByText at geoapifyService: ',
       error
     );
+    return { error: error };
   }
 }
 
@@ -24,5 +25,6 @@ export async function getCompleteAddress(input) {
       'ERROR while fetching getCompleteAddress at geoapifyService: ',
       error
     );
+    return { error: error };
   }
 }

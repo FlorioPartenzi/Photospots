@@ -4,10 +4,10 @@ import LocationForm from '../components/LocationForm';
 import LocationList from '../components/LocationList';
 import Map from '../components/Map';
 import { auth } from '../utils/firebase';
-import { updatePosition } from '../features/postition/positionSlice';
+import { updatePosition } from '../app/features/postition/positionSlice';
 import { getLocationsByDistance } from '../Services/ApiService';
 import { getUsersCurrentLocation } from '../utils/locationUtils';
-import { setLocationList } from '../features/locationList/locationListSlice';
+import { setLocationList } from '../app/features/locationList/locationListSlice';
 
 function Profile() {
   const dispatch = useDispatch();
@@ -25,7 +25,6 @@ function Profile() {
       response.coords.latitude,
       idToken
     );
-    console.log(nearestLocations);
     dispatch(setLocationList(nearestLocations));
   };
 
@@ -34,13 +33,13 @@ function Profile() {
   }, []);
 
   return (
-    <div className="Mainpage">
+    <main className="Mainpage">
       <LocationList></LocationList>
       <div>
         <LocationForm></LocationForm>
         <Map></Map>
       </div>
-    </div>
+    </main>
   );
 }
 

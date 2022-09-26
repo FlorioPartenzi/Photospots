@@ -13,5 +13,6 @@ export async function uploadImageToFirebase(image) {
       'ERROR while fetching uploadImageToFirebase at FirebaseService: ',
       error
     );
+    return { error: error };
   }
 }

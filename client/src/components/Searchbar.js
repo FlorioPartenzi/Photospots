@@ -1,6 +1,6 @@
 import { getLocationsBySearch } from '../Services/ApiService';
 import { auth } from '../utils/firebase';
-import { setLocationList } from '../features/locationList/locationListSlice';
+import { setLocationList } from '../app/features/locationList/locationListSlice';
 import { useDispatch } from 'react-redux';
 
 function Searchbar() {

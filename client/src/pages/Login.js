@@ -5,13 +5,13 @@ import RegisterForm from '../components/RegisterForm';
 function Login() {
   const [toggleLogin, setToggleLogin] = useState(true);
   return (
-    <div>
+    <main>
       {toggleLogin ? (
         <LoginForm setToggleLogin={setToggleLogin}></LoginForm>
       ) : (
         <RegisterForm setToggleLogin={setToggleLogin}></RegisterForm>
       )}
-    </div>
+    </main>
   );
 }
 
