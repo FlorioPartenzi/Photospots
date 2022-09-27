@@ -48,6 +48,7 @@ function Location({ location }) {
       const isPinned = pinned.some((pinned) => {
         return pinned.id == location.id;
       });
+
       if (isPinned) {
         setIsPinned(true);
         setClassName('pin pinned');
@@ -71,7 +72,7 @@ function Location({ location }) {
           <h2 className="photospotInfoTitle">{location.title}</h2>
           <p>{location.description}</p>
         </div>
-        <div style={{ display: 'flex' }}>
+        <div className="photospotBottomLine">
           <p className="photosptInfoAddress">{address}</p>
           <button onClick={togglePinned} className="pinBtn">
             <Pin_Outline className={classNames}></Pin_Outline>

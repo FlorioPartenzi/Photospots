@@ -1,5 +1,5 @@
 :root {
-  --p1-color: rgb(219, 22, 47);
+  --p1-color: rgb(22, 195, 146);
   --p2-color: rgb(4, 73, 98);
   --nb-color: rgb(239, 240, 240);
   --nm-color: rgb(174, 173, 174);
@@ -37,6 +37,9 @@ button {
 .Mainpage {
   display: flex;
   justify-content: space-between;
+}
+.leftSide {
+  max-width: 70vw;
 }
 .mapContainer {
   height: 36vh;
@@ -149,35 +152,56 @@ button {
 .photospotInfoTitle {
   margin-top: 0vh;
 }
+.photospotBottomLine {
+  display: flex;
+  justify-content: space-between;
+}
 .photosptInfoAddress {
   justify-self: flex-start;
+  align-self: flex-end;
   margin: 0%;
   margin-bottom: 0.4vh;
 }
+.pinBtn {
+  background-color: var(--nb-color);
+  margin: 0%;
+}
+.pin {
+  background-color: var(--nb-color);
+  overflow: visible;
+  fill: none;
+  stroke: var(--p2-color);
+  stroke-width: 50px;
+  width: 3vh;
+  height: 3vh;
+}
+.pinned {
+  fill: var(--p2-color);
+  stroke: var(--p2-color);
+}
 
 .marker {
-  background-color: var(--nd-color);
-  mask-image: url('../public/Pin_Solid.svg');
-  background-repeat: no-repeat;
+  background-color: var(--p2-color);
+  mask-image: url('./Pin.svg');
+  mask-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
-  height: 2vh;
-  width: 2vh;
+  height: 6vh;
+  width: 6vh;
 }
 .userPosMarker {
   background-color: var(--p1-color);
-  mask-image: url('../public/Pin_Solid.svg');
-  background-repeat: no-repeat;
+  mask-image: url('./Pin.svg');
+  mask-repeat: no-repeat;
   background-size: contain;
-  height: 2vh;
-  width: 2vh;
+  height: 6vh;
+  width: 6vh;
 }
-.pin {
-  height: 3vh;
-  width: 3vh;
-  color: aqua;
+.logo {
+  margin-left: 1vw;
+  width: 8vh;
+  height: 8vh;
 }
-
 .searchbar {
   padding-left: 1vw;
   padding-right: 1vw;
@@ -198,22 +222,4 @@ button {
   width: 5vh;
   border-radius: 100%;
   border-style: solid;
-}
-
-.pinBtn {
-  background-color: var(--nb-color);
-}
-
-.pin {
-  background-color: var(--nb-color);
-  overflow: visible;
-  fill: none;
-  stroke: var(--p2-color);
-  stroke-width: 50px;
-  width: 3vh;
-  height: 3vh;
-}
-.pinned {
-  fill: var(--p2-color);
-  stroke: var(--p2-color);
 }

@@ -26,8 +26,8 @@ function RegisterForm({ setToggleLogin }) {
         registerEmail,
         idToken
       );
-      if (response.user.email) {
-        dispatch(login(response.user.email));
+      if (response.email) {
+        dispatch(login(response.email));
         navigate('/profile');
       }
     } catch (error) {

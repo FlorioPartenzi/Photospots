@@ -9,6 +9,7 @@ import { getLocationsByDistance } from '../Services/ApiService';
 import { getUsersCurrentLocation } from '../utils/locationUtils';
 import { setLocationList } from '../app/features/locationList/locationListSlice';
 import { useNavigate } from 'react-router-dom';
+import PinnedLocations from '../components/PinnedLocations';
 
 function Profile() {
   const dispatch = useDispatch();
@@ -39,7 +40,10 @@ function Profile() {
 
   return (
     <main className="Mainpage">
-      <LocationList></LocationList>
+      <div className="leftSide">
+        <PinnedLocations></PinnedLocations>
+        <LocationList></LocationList>
+      </div>
       <div>
         <LocationForm></LocationForm>
         <Map></Map>

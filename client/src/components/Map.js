@@ -1,6 +1,7 @@
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateViewPosition } from '../app/features/viewPosition/viewPositionSlice';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
@@ -14,32 +15,35 @@ function Map() {
   const locationCoordinates = useSelector(
     (state) => state.pinPosition
   ).pinPosition;
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (map.current) return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
       zoom: 10,
-      center: coordinates,
+      center: [0, 0],
     });
   }, []);
 
-  //set a marker at the users Coordiantes
+  // set a marker at the users Coordiantes
   useEffect(() => {
-    const markerDiv = document.createElement('div');
-    markerDiv.className = 'userPosMarker';
-
-    const marker = new mapboxgl.Marker(markerDiv)
-      .setLngLat(coordinates)
-      .addTo(map.current);
+    if (coordinates[0] != undefined) {
+      const markerDiv = document.createElement('div');
+      markerDiv.className = 'userPosMarker';
+      const marker = new mapboxgl.Marker(markerDiv)
+        .setLngLat(coordinates)
+        .addTo(map.current);
+    }
   }, [coordinates]);
 
   useEffect(() => {
     const createMarkerAt = (coordinates) => {
       const markerDiv = document.createElement('div');
       markerDiv.className = 'marker';
-
+      markerDiv.addEventListener('click', () => {
+        dispatch(updateViewPosition(coordinates));
+      });
       const marker = new mapboxgl.Marker(markerDiv)
         .setLngLat(coordinates)
         .addTo(map.current);
@@ -53,7 +57,7 @@ function Map() {
     map.current.flyTo({
       zoom: 10,
       center: centerCoordinates,
-      essential: true, // this animation is considered essential with respect to prefers-reduced-motion
+      essential: true,
     });
   }, [centerCoordinates]);
 

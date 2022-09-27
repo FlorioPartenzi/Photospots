@@ -1,13 +1,17 @@
 import LogoutBtn from './LogoutBtn';
 import Searchbar from './Searchbar';
+import { ReactComponent as Logo } from '../Logo.svg';
 
 function Navbar() {
   return (
-    <div className="navbar">
-      <h1>Photospots</h1>
+    <nav className="navbar">
+      <div style={{ display: 'flex' }}>
+        <Logo className="logo"></Logo>
+        <h1>Photospots</h1>
+      </div>
       <Searchbar></Searchbar>
       <LogoutBtn></LogoutBtn>
-    </div>
+    </nav>
   );
 }
 export default Navbar;

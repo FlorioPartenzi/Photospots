@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const positionSlice = createSlice({
   initialState: {
-    position: [2.11, 41.43],
+    position: [undefined, undefined],
   },
   name: 'position',
   reducers: {
