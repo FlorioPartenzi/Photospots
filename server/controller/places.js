@@ -60,7 +60,7 @@ const getAllPlaces = async function (req, res) {
         lat: true,
       },
     });
-    withPinned = all.map((location) => {
+    let withPinned = all.map((location) => {
       //see if location is pinned and add an boolean
       if (
         places[0].pinned.filter((place) => {
@@ -73,6 +73,13 @@ const getAllPlaces = async function (req, res) {
       }
       return location;
     });
+    if (lat && lng) {
+      withPinned = withPinned.sort((a, b) => {
+        const distanceA = Math.abs(lng - a.lon) + Math.abs(lat - a.lat);
+        const distanceB = Math.abs(lng - b.lon) + Math.abs(lat - b.lat);
+        return distanceA - distanceB;
+      });
+    }
     res.status(200);
     res.send(withPinned);
   } catch (error) {

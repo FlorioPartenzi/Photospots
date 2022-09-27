@@ -1,6 +1,6 @@
 import LogoutBtn from './LogoutBtn';
 import Searchbar from './Searchbar';
-import { ReactComponent as Logo } from '../Logo.svg';
+import { ReactComponent as Logo } from '../LogoV2.svg';
 
 function Navbar() {
   return (

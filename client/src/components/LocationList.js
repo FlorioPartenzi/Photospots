@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { auth } from '../utils/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToPinnedList } from '../app/features/pinnedList/pinnedListSlice';
+import { getUsersCurrentLocation } from '../utils/locationUtils';
+import { updatePosition } from '../app/features/postition/positionSlice';
 
 function LocationList() {
   const [locations, setLocations] = useState([]);
@@ -11,19 +13,21 @@ function LocationList() {
   const locationList = useSelector((state) => state.locationList).locationList;
   const getLocations = async () => {
     const idToken = await auth.currentUser.getIdToken(true);
-    const response = await getAllLocations(idToken);
+    const userPos = await getUsersCurrentLocation();
+    const response = await getAllLocations(
+      userPos.coords.longitude,
+      userPos.coords.latitude,
+      idToken
+    );
+    dispatch(
+      updatePosition([userPos.coords.longitude, userPos.coords.latitude])
+    );
+    console.log(idToken);
     setLocations(response);
   };
-
   //set locations to all locations on first load
   useEffect(() => {
-    // getLocations();
-    const setPinned = async () => {
-      const idToken = await auth.currentUser.getIdToken(true);
-      const pinned = await getPinned(idToken);
-      dispatch(addToPinnedList([...pinned]));
-    };
-    setPinned();
+    getLocations();
   }, []);
 
   //if search show search else show all

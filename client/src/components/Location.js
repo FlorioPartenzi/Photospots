@@ -41,27 +41,14 @@ function Location({ location }) {
   };
 
   useEffect(() => {
-    const getUsername = async () => {
-      const idToken = await auth.currentUser.getIdToken(true);
-      const user = await getUserInfoById(location.userId, idToken);
-      console.log(location.id, user);
-      setUsername(user.name);
-    };
+    setUsername(location.user.name);
     dispatch(addPinPosition([location.lon, location.lat]));
-    const pinMe = async () => {
-      const idToken = await auth.currentUser.getIdToken(true);
-      const pinned = await getPinned(idToken);
-      const isPinned = pinned.some((pinned) => {
-        return pinned.id == location.id;
-      });
 
-      if (isPinned) {
-        setIsPinned(true);
-        setClassName('pin pinned');
-      }
-    };
-    getUsername();
-    pinMe();
+    if (location.isPinned) {
+      setIsPinned(true);
+      setClassName('pin pinned');
+      dispatch(addToPinnedList(location));
+    }
   }, []);
 
   return (

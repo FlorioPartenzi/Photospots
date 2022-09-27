@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { auth } from '../utils/firebase';
-import { postNewLocation } from '../Services/ApiService';
+import { getAllLocations, postNewLocation } from '../Services/ApiService';
 import LocationProposal from './LocationProposal';
 import { uploadImageToFirebase } from '../Services/FirebaseService';
 import Compressor from 'compressorjs';
@@ -8,6 +8,8 @@ import {
   getAutocompleteAdressByText,
   getCompleteAddress,
 } from '../Services/GeoapifyService';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLocationList } from '../app/features/locationList/locationListSlice';
 
 function LocationForm() {
   const [image, setImage] = useState(null);
@@ -16,6 +18,13 @@ function LocationForm() {
   const [address, setAddress] = useState('');
   const [timer, setTimer] = useState(null);
   const [submitMsg, setSubmitMsg] = useState('upload');
+  const userPos = useSelector((state) => state.position).position;
+  const dispatch = useDispatch();
+  const getLocations = async () => {
+    const idToken = await auth.currentUser.getIdToken(true);
+    const response = await getAllLocations(userPos[0], userPos[1], idToken);
+    dispatch(setLocationList(response));
+  };
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -61,6 +70,9 @@ function LocationForm() {
     setAddressProposal([]);
     event.target.image.value = '';
     setSubmitMsg('✔');
+
+    getLocations();
+
     setTimeout(() => {
       setSubmitMsg('upload');
     }, 1500);

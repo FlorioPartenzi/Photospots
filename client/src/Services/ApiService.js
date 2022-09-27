@@ -113,14 +113,14 @@ export async function postNewLocation(
   }
 }
 
-export async function getAllLocations(idToken) {
+export async function getAllLocations(lng, lat, idToken) {
   try {
     const requestOptions = {
       method: 'GET',
       headers: { authToken: idToken },
     };
     const allLocations = await (
-      await fetch(`${SEVRER_BASE_URL}/places`, requestOptions)
+      await fetch(`${SEVRER_BASE_URL}/places/${lng}/${lat}`, requestOptions)
     ).json();
     if (allLocations) return allLocations;
     return null;
