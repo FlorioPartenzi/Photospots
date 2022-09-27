@@ -33,11 +33,50 @@ const postNewPlace = async function (req, res) {
 
 const getAllPlaces = async function (req, res) {
   try {
-    const places = await prisma.places.findMany({});
+    const email = req.email;
+    const lat = req.params.lat;
+    const lng = req.params.lng;
+    const places = await prisma.users.findMany({
+      where: { email: email },
+      select: {
+        pinned: {
+          select: { id: true },
+        },
+      },
+    });
+    const all = await prisma.places.findMany({
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        user: { select: { name: true } },
+        imgUrl: true,
+        housenumber: true,
+        street: true,
+        city: true,
+        postcode: true,
+        country: true,
+        lon: true,
+        lat: true,
+      },
+    });
+    withPinned = all.map((location) => {
+      //see if location is pinned and add an boolean
+      if (
+        places[0].pinned.filter((place) => {
+          if (place.id == location.id) return true;
+        }).length > 0
+      ) {
+        location.isPinned = true;
+      } else {
+        location.isPinned = false;
+      }
+      return location;
+    });
     res.status(200);
-    res.send(places);
+    res.send(withPinned);
   } catch (error) {
-    console.log('ERROR in controller/places.js at postNewPlace', error);
+    console.log('ERROR in controller/places.js at getAllPlaces', error);
     res.status(500);
     res.send('failed to create new place');
   }
