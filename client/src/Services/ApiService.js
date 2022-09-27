@@ -10,7 +10,6 @@ export async function loginRequest(idToken) {
     const user = await (
       await fetch(`${SEVRER_BASE_URL}/login`, requestOptions)
     ).json();
-
     if (user.id) return user;
     return false;
   } catch (error) {
@@ -37,7 +36,23 @@ export async function registerRequest(name, email, idToken) {
     return { error: error };
   }
 }
+export async function getUserInfo(idToken) {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: { authToken: idToken },
+    };
 
+    const user = await (
+      await fetch(`${SEVRER_BASE_URL}/profile`, requestOptions)
+    ).json();
+    if (user.name) return user;
+    return false;
+  } catch (error) {
+    console.log('ERROR in ApiService while fetching profile: ', error);
+    return { error: error };
+  }
+}
 //refractor to obj as argument!!!!
 export async function postNewLocation(
   title,
@@ -165,6 +180,7 @@ export async function putPinned(id, add, idToken) {
     return { error: error };
   }
 }
+
 export async function getPinned(idToken) {
   try {
     const requestOptions = {

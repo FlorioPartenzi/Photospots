@@ -152,6 +152,10 @@ button {
 .photospotInfoTitle {
   margin-top: 0vh;
 }
+.usernameSmall {
+  margin-left: 2vw;
+  margin-top: 0.6vh;
+}
 .photospotBottomLine {
   display: flex;
   justify-content: space-between;

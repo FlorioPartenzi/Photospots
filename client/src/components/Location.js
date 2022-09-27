@@ -10,18 +10,19 @@ import {
   addToPinnedList,
   removeFromPinnedList,
 } from '../app/features/pinnedList/pinnedListSlice';
-import { getPinned, putPinned } from '../Services/ApiService';
+import { getPinned, getUserInfo, putPinned } from '../Services/ApiService';
 
 function Location({ location }) {
   const [isPinned, setIsPinned] = useState(false);
   const [classNames, setClassName] = useState('pin');
+  const [username, setUsername] = useState('');
   const dispatch = useDispatch();
-
   const address = createAddressString(location);
   const goToPos = () => {
     dispatch(updateViewPosition([location.lon, location.lat]));
   };
 
+  console.log(location.imgUrl);
   const togglePinned = () => {
     const setPin = async () => {
       const idToken = await auth.currentUser.getIdToken(true);
@@ -41,6 +42,12 @@ function Location({ location }) {
   };
 
   useEffect(() => {
+    console.log(location);
+    const getUsername = async () => {
+      const idToken = await auth.currentUser.getIdToken(true);
+      const user = await getUserInfo(idToken);
+      setUsername(user.name);
+    };
     dispatch(addPinPosition([location.lon, location.lat]));
     const pinMe = async () => {
       const idToken = await auth.currentUser.getIdToken(true);
@@ -54,6 +61,7 @@ function Location({ location }) {
         setClassName('pin pinned');
       }
     };
+    getUsername();
     pinMe();
   }, []);
 
@@ -69,7 +77,12 @@ function Location({ location }) {
       </div>
       <div className="photospotInfoContainer">
         <div>
-          <h2 className="photospotInfoTitle">{location.title}</h2>
+          <div className="photospotBottomLine">
+            <h2 className="photospotInfoTitle">{location.title}</h2>
+            <p className="usernameSmall">
+              <small>{username}</small>
+            </p>
+          </div>
           <p>{location.description}</p>
         </div>
         <div className="photospotBottomLine">

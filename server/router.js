@@ -19,7 +19,7 @@ const router = new Router();
 //all the endpoints go here
 router.post('/register', registerUser);
 router.post('/login', loginUser);
-router.post('/profile', getUserInfo);
+router.get('/profile', getUserInfo);
 router.post('/newPlace', postNewPlace);
 router.get('/places', getAllPlaces);
 router.post('/placesByUser', getPlacesByUser);

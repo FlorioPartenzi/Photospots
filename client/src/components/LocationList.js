@@ -38,7 +38,7 @@ function LocationList() {
   return (
     <ul className="photospotsListElement">
       {locations.map((location, i) => (
-        <li key={i}>
+        <li key={i} id={location.id}>
           <Location location={location}></Location>
         </li>
       ))}
