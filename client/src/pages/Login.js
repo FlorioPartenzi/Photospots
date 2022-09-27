@@ -6,11 +6,13 @@ function Login() {
   const [toggleLogin, setToggleLogin] = useState(true);
   return (
     <main>
-      {toggleLogin ? (
-        <LoginForm setToggleLogin={setToggleLogin}></LoginForm>
-      ) : (
-        <RegisterForm setToggleLogin={setToggleLogin}></RegisterForm>
-      )}
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        {toggleLogin ? (
+          <LoginForm setToggleLogin={setToggleLogin}></LoginForm>
+        ) : (
+          <RegisterForm setToggleLogin={setToggleLogin}></RegisterForm>
+        )}
+      </div>
     </main>
   );
 }

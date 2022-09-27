@@ -186,11 +186,9 @@ export async function putPinned(id, add, idToken) {
       headers: { authToken: idToken, 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: id, add: add }),
     };
-    const location = await (
-      await fetch(`${SEVRER_BASE_URL}/pinned`, requestOptions)
-    ).json();
-
-    if (location) return location;
+    const location = await fetch(`${SEVRER_BASE_URL}/pinned`, requestOptions);
+    const locationParsed = location.json();
+    if (locationParsed) return locationParsed;
     return null;
   } catch (error) {
     console.log('ERROR in ApiService while fetching put pinned: ', error);

@@ -18,6 +18,7 @@ function Location({ location }) {
   const [username, setUsername] = useState('');
   const dispatch = useDispatch();
   const address = createAddressString(location);
+  const pinnedLocations = useSelector((state) => state.pinnedList).pinnedList;
   const goToPos = () => {
     dispatch(updateViewPosition([location.lon, location.lat]));
   };
@@ -47,7 +48,9 @@ function Location({ location }) {
     if (location.isPinned) {
       setIsPinned(true);
       setClassName('pin pinned');
-      dispatch(addToPinnedList(location));
+      if (!pinnedLocations.includes(location)) {
+        dispatch(addToPinnedList(location));
+      }
     }
   }, []);
 

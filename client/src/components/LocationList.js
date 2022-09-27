@@ -22,7 +22,6 @@ function LocationList() {
     dispatch(
       updatePosition([userPos.coords.longitude, userPos.coords.latitude])
     );
-    console.log(idToken);
     setLocations(response);
   };
   //set locations to all locations on first load

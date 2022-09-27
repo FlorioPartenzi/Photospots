@@ -11,12 +11,20 @@ body {
   background-color: var(--nb-color);
   color: var(--p2-color);
 }
-
+h1 {
+  font-family: 'Fredoka One', serif;
+  font-size: 180%;
+}
+h2 {
+  font-family: 'Fredoka One', serif;
+  font-weight: lighter;
+}
 input {
   border-style: none;
   margin: 1vh 1vw;
 }
 button {
+  font-family: 'Fredoka One', serif;
   border-style: none;
   border-radius: 20px;
   background-color: var(--p1-color);
@@ -163,6 +171,8 @@ button {
 }
 .usernameSmall {
   margin: 0.6vh 1vw 0vh 2vw;
+  font-family: 'Fredoka One', serif;
+  font-weight: lighter;
 }
 .photospotBottomLine {
   display: flex;
