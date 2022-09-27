@@ -10,7 +10,7 @@ import {
   addToPinnedList,
   removeFromPinnedList,
 } from '../app/features/pinnedList/pinnedListSlice';
-import { getPinned, getUserInfo, putPinned } from '../Services/ApiService';
+import { getPinned, getUserInfoById, putPinned } from '../Services/ApiService';
 
 function Location({ location }) {
   const [isPinned, setIsPinned] = useState(false);
@@ -22,7 +22,6 @@ function Location({ location }) {
     dispatch(updateViewPosition([location.lon, location.lat]));
   };
 
-  console.log(location.imgUrl);
   const togglePinned = () => {
     const setPin = async () => {
       const idToken = await auth.currentUser.getIdToken(true);
@@ -42,10 +41,10 @@ function Location({ location }) {
   };
 
   useEffect(() => {
-    console.log(location);
     const getUsername = async () => {
       const idToken = await auth.currentUser.getIdToken(true);
-      const user = await getUserInfo(idToken);
+      const user = await getUserInfoById(location.userId, idToken);
+      console.log(location.id, user);
       setUsername(user.name);
     };
     dispatch(addPinPosition([location.lon, location.lat]));
@@ -79,14 +78,14 @@ function Location({ location }) {
         <div>
           <div className="photospotBottomLine">
             <h2 className="photospotInfoTitle">{location.title}</h2>
-            <p className="usernameSmall">
+            <p className="usernameSmall hideMe">
               <small>{username}</small>
             </p>
           </div>
-          <p>{location.description}</p>
+          <p className="hideMe">{location.description}</p>
         </div>
         <div className="photospotBottomLine">
-          <p className="photosptInfoAddress">{address}</p>
+          <p className="photosptInfoAddress hideMe">{address}</p>
           <button onClick={togglePinned} className="pinBtn">
             <Pin_Outline className={classNames}></Pin_Outline>
           </button>

@@ -71,6 +71,27 @@ const getUserInfo = async function (req, res) {
     res.send({ msg: 'failed to load user information' });
   }
 };
+const getUserInfoById = async function (req, res) {
+  try {
+    if (req.email) {
+      const id = req.params.id;
+      const user = await prisma.users.findUnique({
+        where: { id: id },
+        select: { name: true, email: true },
+      });
+
+      res.status(200);
+      res.send(user);
+    } else {
+      res.status(204);
+      res.send({ msg: 'unauthorized' });
+    }
+  } catch (error) {
+    console.log('ERROR in controller/index.js at getUserInfo', error);
+    res.status(500);
+    res.send({ msg: 'failed to load user information' });
+  }
+};
 
 const putUserPinned = async function (req, res) {
   try {
@@ -133,6 +154,7 @@ module.exports = {
   registerUser,
   loginUser,
   getUserInfo,
+  getUserInfoById,
   putUserPinned,
   getUserPinned,
 };

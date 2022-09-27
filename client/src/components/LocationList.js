@@ -17,7 +17,7 @@ function LocationList() {
 
   //set locations to all locations on first load
   useEffect(() => {
-    getLocations();
+    // getLocations();
     const setPinned = async () => {
       const idToken = await auth.currentUser.getIdToken(true);
       const pinned = await getPinned(idToken);

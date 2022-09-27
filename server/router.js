@@ -3,6 +3,7 @@ const {
   registerUser,
   loginUser,
   getUserInfo,
+  getUserInfoById,
   putUserPinned,
   getUserPinned,
 } = require('./controller/users');
@@ -20,6 +21,7 @@ const router = new Router();
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/profile', getUserInfo);
+router.get('/profile/:id', getUserInfoById);
 router.post('/newPlace', postNewPlace);
 router.get('/places', getAllPlaces);
 router.post('/placesByUser', getPlacesByUser);

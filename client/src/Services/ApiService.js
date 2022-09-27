@@ -53,6 +53,23 @@ export async function getUserInfo(idToken) {
     return { error: error };
   }
 }
+export async function getUserInfoById(id, idToken) {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: { authToken: idToken },
+    };
+
+    const user = await (
+      await fetch(`${SEVRER_BASE_URL}/profile/${id}`, requestOptions)
+    ).json();
+    if (user.name) return user;
+    return false;
+  } catch (error) {
+    console.log('ERROR in ApiService while fetching profileById: ', error);
+    return { error: error };
+  }
+}
 //refractor to obj as argument!!!!
 export async function postNewLocation(
   title,

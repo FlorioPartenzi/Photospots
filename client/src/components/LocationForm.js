@@ -15,17 +15,20 @@ function LocationForm() {
   const [addressPorposal, setAddressProposal] = useState([]);
   const [address, setAddress] = useState('');
   const [timer, setTimer] = useState(null);
+  const [submitMsg, setSubmitMsg] = useState('upload');
 
   const submitHandler = async (event) => {
     event.preventDefault();
-
+    setSubmitMsg('Uploading');
     //uploading the image file to Firebase and fetching fore the URL
     if (image == null) return;
     const imgUrl = await uploadImageToFirebase(compressedImage);
+    setSubmitMsg('•');
 
     //settign the values and fetching a whole address and corresponding coordinates from the geoapify API
     const address = event.target.address.value;
     const idToken = await auth.currentUser.getIdToken(true);
+    setSubmitMsg('••');
     const response = await getCompleteAddress(address);
     const housenumber = response.features[0].properties.housenumber || '';
     const street = response.features[0].properties.street || '';
@@ -34,6 +37,7 @@ function LocationForm() {
     const country = response.features[0].properties.country || '';
     const lon = response.features[0].properties.lon;
     const lat = response.features[0].properties.lat;
+    setSubmitMsg('•');
 
     // creating the new location in the Database
     postNewLocation(
@@ -56,6 +60,10 @@ function LocationForm() {
     setAddress('');
     setAddressProposal([]);
     event.target.image.value = '';
+    setSubmitMsg('✔');
+    setTimeout(() => {
+      setSubmitMsg('upload');
+    }, 1500);
   };
 
   //rte toggeling the input and Api calls to avoid Spam
@@ -88,9 +96,21 @@ function LocationForm() {
         },
       });
     };
-
+    const compressImageALot = (image) => {
+      return new Compressor(image, {
+        quality: 0.4,
+        success: (compressedResult) => {
+          setCompressedImage(compressedResult);
+          return compressedResult;
+        },
+      });
+    };
     if (image) {
-      compressImage(image);
+      if (image.size < 1000000) {
+        compressImage(image);
+      } else {
+        compressImageALot(image);
+      }
     }
   }, [image]);
 
@@ -159,7 +179,9 @@ function LocationForm() {
           <div className="fakeImgInput">add image</div>
         </label>
         <label className="formInputLabel">
-          <button type="submit">Add Photospot</button>
+          <button type="submit" className="formSubmitBtn">
+            {submitMsg}
+          </button>
         </label>
       </form>
     </div>
