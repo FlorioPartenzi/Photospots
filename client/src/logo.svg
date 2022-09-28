@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 800 600" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsxlink="http://www.w3.org/1999/xlink" xmlspace="preserve" xmlnsserif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(2.00758,0,0,2.00758,-471.183,-341.443)">
+        <path d="M243,242C241.804,221.945 250.885,213.063 269,214L303,213L320,180L402,180L421,214L529,213C529.262,199.287 537.914,197.462 550.338,197.492C560.715,197.517 571.852,199.177 571,212L599,211C613.147,210.89 621.984,218.187 624,235L625,432C622.661,447.535 613.846,456.716 598,459L272,459C250.566,459.543 243.107,449.94 243,435L243,242Z" style="fill:rgb(22,195,146);stroke:black;stroke-width:8.74px;"/>
+        <g transform="matrix(1.20136,0,0,1.20136,-107.959,-88.1945)">
+            <circle cx="496.489" cy="353.511" r="84.489" style="fill:rgb(239,255,250);stroke:black;stroke-width:8.28px;"/>
+        </g>
+        <g transform="matrix(1.05034,0,0,1.05034,-32.7398,-34.8081)">
+            <circle cx="496.489" cy="353.511" r="84.489" style="fill:rgb(174,246,225);stroke:black;stroke-width:8.61px;"/>
+        </g>
+        <path d="M307,235C274.836,234.696 276.686,270.01 307,269L329,269C360.068,268.873 359.769,234.578 329,235L307,235Z" style="fill:white;stroke:black;stroke-width:8.74px;"/>
+        <path d="M414.502,383L475.502,383L488.502,382.536L496,389L515,392L529,393L552,399C515.367,437.777 440.563,430.031 414.502,383Z" style="fill:rgb(80, 180, 180);stroke:black;stroke-width:8.74px;"/>
+        <path d="M577.485,333C578.147,357.765 569.299,379.658 552,399L529,393L515.086,392L496,389L488.502,382.536L496,371L506,336.498L527,336.498L552,339L567,336.498L577.485,333Z" style="fill:white;stroke:black;stroke-width:8.74px;"/>
+        <g transform="matrix(0.480011,0,0,0.480011,264.059,174.015)">
+            <path d="M510,336.498L513,300L513,285L507.938,284.63L507.816,258.2L515.129,258.155L515.129,264.749L530.663,264.721L530.663,258.127L537.869,258.112L538.108,284.65L533,285L533,300L536,338.498" style="fill:white;stroke:black;stroke-width:8.71px;"/>
+        </g>
+    </g>
+</svg>
