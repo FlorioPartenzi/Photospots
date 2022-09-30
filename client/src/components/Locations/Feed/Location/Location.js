@@ -11,6 +11,7 @@ import {
 } from '../../../../app/features/pinnedList/pinnedListSlice';
 import { putPinned } from '../../../../Services/ApiService';
 import '../Feed.css';
+import './Location.css';
 
 function Location({ location }) {
   const [isPinned, setIsPinned] = useState(false);

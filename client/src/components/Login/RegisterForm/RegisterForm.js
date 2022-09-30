@@ -6,6 +6,7 @@ import { auth } from '../../../utils/firebase';
 import { useDispatch } from 'react-redux';
 import { login } from '../../../app/features/user/userSlice';
 import '../Login.css';
+import './RegisterForm.css';
 
 function RegisterForm({ setToggleLogin }) {
   const navigate = useNavigate();

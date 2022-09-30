@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocationList } from '../../../../app/features/locationList/locationListSlice';
 import '../Form.css';
+import './LocationForm.css';
 
 function LocationForm() {
   const [image, setImage] = useState(null);

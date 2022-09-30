@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { removeAllFromPinnedList } from '../../../app/features/pinnedList/pinnedListSlice';
 import '../Navbar.css';
+import './LogoutBtn.css';
+
 function LogoutBtn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUsersCurrentLocation } from '../../../../utils/locationUtils';
 import { updatePosition } from '../../../../app/features/postition/positionSlice';
 import '../Feed.css';
+import './LocationList.css';
 
 function LocationList() {
   const [locations, setLocations] = useState([]);

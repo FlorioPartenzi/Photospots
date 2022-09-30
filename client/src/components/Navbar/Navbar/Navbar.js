@@ -4,6 +4,8 @@ import { ReactComponent as Logo } from '../../../LogoV2.svg';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import '../Navbar.css';
+import './Navbar.css';
+
 function Navbar() {
   const user = useSelector((state) => state.user);
   useEffect(() => {}, [user]);
