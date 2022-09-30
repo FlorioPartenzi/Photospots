@@ -1,8 +1,9 @@
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateViewPosition } from '../app/features/viewPosition/viewPositionSlice';
-
+import { updateViewPosition } from '../../../app/features/viewPosition/viewPositionSlice';
+import './Map.css';
+import '../Map.css';
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY;
 
 function Map() {

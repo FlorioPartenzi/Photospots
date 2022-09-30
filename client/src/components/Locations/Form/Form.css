@@ -1,0 +1,34 @@
+.descriptionInput {
+  width: 20vw;
+}
+
+.formInputProposal {
+  list-style: none;
+  align-self: flex-start;
+  text-align: start;
+  padding-left: 0%;
+  margin: 0%;
+}
+
+.formInputProposalBTN {
+  background-color: var(--nm-color);
+  margin: 0.4vh 1vw;
+  border-radius: 5px;
+}
+
+.imgInput {
+  display: none;
+  width: min-content;
+}
+
+.fakeImgInput {
+  width: fit-content;
+  border-style: none;
+  border-radius: 20px;
+  background-color: var(--p1-color);
+  font-size: smaller;
+  padding: 2pt 4pt;
+  margin: 1vh 1vw;
+  color: var(--nb-color);
+  align-self: center;
+}

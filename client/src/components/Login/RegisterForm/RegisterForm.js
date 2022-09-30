@@ -1,10 +1,11 @@
-import { registerRequest } from '../Services/ApiService';
+import { registerRequest } from '../../../Services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import { auth } from '../utils/firebase';
+import { auth } from '../../../utils/firebase';
 import { useDispatch } from 'react-redux';
-import { login } from '../app/features/user/userSlice';
+import { login } from '../../../app/features/user/userSlice';
+import '../Login.css';
 
 function RegisterForm({ setToggleLogin }) {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function RegisterForm({ setToggleLogin }) {
       );
       if (response.email) {
         dispatch(login(response.email));
-        navigate('/profile');
+        navigate('/home');
       }
     } catch (error) {
       console.log('ERROR in RegisterForm: ', error);
@@ -92,7 +93,11 @@ function RegisterForm({ setToggleLogin }) {
             required
           ></input>
         </label>
-        <button style={{ marginTop: '2vh' }} type="submit">
+        <button
+          classname="formSubmitBtn"
+          style={{ marginTop: '2vh' }}
+          type="submit"
+        >
           register
         </button>
       </form>

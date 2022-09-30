@@ -1,0 +1,14 @@
+.navbar {
+  background-color: var(--p2-color);
+  color: var(--nb-color);
+  display: flex;
+  justify-content: space-between;
+  border-radius: 20px;
+  margin: 2vh 1vw 1vh 1vw;
+  width: 98vw;
+}
+.logo {
+  margin-left: 1vw;
+  width: 8vh;
+  height: 8vh;
+}

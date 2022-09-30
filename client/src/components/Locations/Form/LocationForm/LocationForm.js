@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
-import { auth } from '../utils/firebase';
-import { getAllLocations, postNewLocation } from '../Services/ApiService';
-import LocationProposal from './LocationProposal';
-import { uploadImageToFirebase } from '../Services/FirebaseService';
+import { auth } from '../../../../utils/firebase';
+import {
+  getAllLocations,
+  postNewLocation,
+} from '../../../../Services/ApiService';
+import LocationProposal from '../LocationProposal/LocationProposal';
+import { uploadImageToFirebase } from '../../../../Services/FirebaseService';
 import Compressor from 'compressorjs';
 import {
   getAutocompleteAdressByText,
   getCompleteAddress,
-} from '../Services/GeoapifyService';
+} from '../../../../Services/GeoapifyService';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLocationList } from '../app/features/locationList/locationListSlice';
+import { setLocationList } from '../../../../app/features/locationList/locationListSlice';
+import '../Form.css';
 
 function LocationForm() {
   const [image, setImage] = useState(null);

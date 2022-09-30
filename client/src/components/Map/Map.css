@@ -1,0 +1,26 @@
+.mapContainer {
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+  margin: 2vh 1vw;
+  border-radius: 16px;
+  border-style: solid;
+  height: 36vh;
+}
+
+.marker {
+  background-color: var(--p2-color);
+  mask-image: url('../../Pin.svg');
+  mask-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  height: 6vh;
+  width: 6vh;
+}
+
+.userPosMarker {
+  background-color: var(--p1-color);
+  mask-image: url('../../Pin.svg');
+  mask-repeat: no-repeat;
+  background-size: contain;
+  height: 6vh;
+  width: 6vh;
+}

@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import LoginForm from '../components/LoginForm';
-import RegisterForm from '../components/RegisterForm';
+import './Login.css';
+import LoginForm from '../../components/Login/LoginForm/LoginForm';
+import RegisterForm from '../../components/Login/RegisterForm/RegisterForm';
 
 function Login() {
   const [toggleLogin, setToggleLogin] = useState(true);
   return (
     <main>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div className="loginContainer">
         {toggleLogin ? (
           <LoginForm setToggleLogin={setToggleLogin}></LoginForm>
         ) : (

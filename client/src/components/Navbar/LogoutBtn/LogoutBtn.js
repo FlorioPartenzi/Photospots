@@ -1,10 +1,10 @@
-import { auth } from '../utils/firebase';
+import { auth } from '../../../utils/firebase';
 import { signOut } from 'firebase/auth';
-import { logout } from '../app/features/user/userSlice';
+import { logout } from '../../../app/features/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { removeAllFromPinnedList } from '../app/features/pinnedList/pinnedListSlice';
-
+import { removeAllFromPinnedList } from '../../../app/features/pinnedList/pinnedListSlice';
+import '../Navbar.css';
 function LogoutBtn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();

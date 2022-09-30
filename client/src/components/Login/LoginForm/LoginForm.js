@@ -1,10 +1,11 @@
-import { loginRequest } from '../Services/ApiService';
+import { loginRequest } from '../../../Services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../utils/firebase';
+import { auth } from '../../../utils/firebase';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '../app/features/user/userSlice';
+import { login } from '../../../app/features/user/userSlice';
+import '../Login.css';
 
 function LoginForm({ setToggleLogin }) {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function LoginForm({ setToggleLogin }) {
         const idToken = await auth.currentUser.getIdToken(true);
         const response = await loginRequest(idToken);
         dispatch(login(response.email));
-        navigate('/profile');
+        navigate('/home');
       }
     } catch (error) {
       console.log('ERROR in LoginForm: ', error);
@@ -68,7 +69,11 @@ function LoginForm({ setToggleLogin }) {
             }}
           ></input>
         </label>
-        <button style={{ marginTop: '2vh' }} type="submit">
+        <button
+          classname="formSubmitBtn"
+          style={{ marginTop: '2vh' }}
+          type="submit"
+        >
           log in
         </button>
       </form>

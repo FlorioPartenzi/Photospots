@@ -1,11 +1,11 @@
-import Location from './Location';
-import { getAllLocations, getPinned } from '../Services/ApiService';
+import Location from '../Location/Location';
+import { getAllLocations, getPinned } from '../../../../Services/ApiService';
 import { useEffect, useState } from 'react';
-import { auth } from '../utils/firebase';
+import { auth } from '../../../../utils/firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToPinnedList } from '../app/features/pinnedList/pinnedListSlice';
-import { getUsersCurrentLocation } from '../utils/locationUtils';
-import { updatePosition } from '../app/features/postition/positionSlice';
+import { getUsersCurrentLocation } from '../../../../utils/locationUtils';
+import { updatePosition } from '../../../../app/features/postition/positionSlice';
+import '../Feed.css';
 
 function LocationList() {
   const [locations, setLocations] = useState([]);

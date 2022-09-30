@@ -1,4 +1,5 @@
-import { createAddressString } from '../utils/locationUtils';
+import { createAddressString } from '../../../../utils/locationUtils';
+import '../Form.css';
 
 function LocationProposal({ location, setAddress }) {
   const locationProposal = createAddressString(location);
