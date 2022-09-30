@@ -32,33 +32,8 @@ button {
   margin: 1vh 1vw;
   color: var(--nb-color);
 }
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  border-radius: 20px;
-  margin: 2vh 1vw 1vh 1vw;
-  background-color: var(--p2-color);
-  color: var(--nb-color);
-  width: 98vw;
-}
 
-.Mainpage {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: space-between;
-}
-.leftSide {
-  max-width: 70vw;
-}
-.mapContainer {
-  height: 36vh;
-  border-radius: 16px;
-  border-style: solid;
-  margin: 2vh 1vw;
-  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-}
-
+/* general styling of all forms (login register addPhotospot) */
 .formContainer {
   display: flex;
   flex-direction: column;
@@ -85,181 +60,15 @@ button {
   max-width: max-content;
   align-self: center;
 }
-.descriptionInput {
-  width: 20vw;
-}
-.formInputProposal {
-  list-style: none;
-  align-self: flex-start;
-  text-align: start;
-  padding-left: 0%;
-  margin: 0%;
-}
-.formInputProposalBTN {
-  background-color: var(--nm-color);
-  margin: 0.4vh 1vw;
-  border-radius: 5px;
-}
+
 .formSubmitBtn {
   font-size: larger;
   font-weight: bold;
   padding: 1vh 4vw;
 }
 
-.toggleLogin {
-  color: var(--p1-color);
-  margin-top: 0%;
-  margin-bottom: 2.5vh;
-  font-size: small;
-}
-.imgInput {
-  display: none;
-  width: min-content;
-}
-.fakeImgInput {
-  width: fit-content;
-  border-style: none;
-  border-radius: 20px;
-  background-color: var(--p1-color);
-  font-size: smaller;
-  padding: 2pt 4pt;
-  margin: 1vh 1vw;
-  color: var(--nb-color);
-  align-self: center;
-}
-
-.photospotsListElement {
-  list-style: none;
-  padding-left: 0%;
-  padding-top: 2vh;
-  margin: 0vh 2vw 2vh 1vw;
-  width: 80vw;
-  min-width: fit-content;
-  max-height: 100vh;
-  overflow-y: scroll;
-  scrollbar-width: none;
-}
-.photospotsListElement::-webkit-scrollbar {
-  display: none;
-}
-
-.photospot {
-  border-style: solid;
-  border-radius: 20px;
-  display: flex;
-  width: 70vw;
-  max-width: 800px;
-  margin-bottom: 2vh;
-}
-
-.photospotImage {
-  border-radius: 20px;
-  margin: 1vh 0.5vw;
-  object-fit: cover;
-  height: 20vh;
-  width: 20vh;
-}
-.photospotInfoContainer {
-  margin: 0.9vh 0.5vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-}
-.photospotInfoTitle {
-  margin-top: 0vh;
-}
-.usernameSmall {
-  margin: 0.6vh 1vw 0vh 2vw;
-  font-family: 'Fredoka One', serif;
-  font-weight: lighter;
-}
-.photospotBottomLine {
-  display: flex;
-  justify-content: space-between;
-}
-.photosptInfoAddress {
-  justify-self: flex-start;
-  align-self: flex-end;
-  margin: 0%;
-  margin-bottom: 0.4vh;
-}
-
-.pinBtn {
-  background-color: var(--nb-color);
-  margin: 0%;
-}
-.pin {
-  background-color: transparent;
-  overflow: visible;
-  fill: none;
-  stroke: var(--p2-color);
-  stroke-width: 50px;
-  width: 3vh;
-  height: 3vh;
-}
-.pinned {
-  fill: var(--p2-color);
-  stroke: var(--p2-color);
-}
-
-.marker {
-  background-color: var(--p2-color);
-  mask-image: url('./Pin.svg');
-  mask-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  height: 6vh;
-  width: 6vh;
-}
-.userPosMarker {
-  background-color: var(--p1-color);
-  mask-image: url('./Pin.svg');
-  mask-repeat: no-repeat;
-  background-size: contain;
-  height: 6vh;
-  width: 6vh;
-}
-.logo {
-  margin-left: 1vw;
-  width: 8vh;
-  height: 8vh;
-}
-.searchbar {
-  padding-left: 1vw;
-  padding-right: 1vw;
-  border-radius: 10px;
-  margin-top: 2.5vh;
-  padding: 0.5vh;
-}
-
 a {
   color: var(--p1-color);
-}
-.pinnedLocation {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  margin: 0% 0vw 0vh 1vw;
-  padding: 0%;
-  overflow-x: scroll;
-  scrollbar-width: none;
-  max-width: 70vw;
-  border-style: solid;
-  border-radius: 20px;
-}
-.pinnedLocation::-webkit-scrollbar {
-  display: none;
-}
-.pinnedLocationImage {
-  margin: 0.3vh 0.4vw;
-  height: 5vh;
-  width: 5vh;
-  border-radius: 100%;
-  border-style: solid;
-}
-.pinnedLocation :hover {
-  border-radius: 18px;
 }
 
 @media (max-width: 750px) {

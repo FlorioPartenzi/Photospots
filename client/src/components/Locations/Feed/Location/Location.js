@@ -1,16 +1,16 @@
-import { GoogleAuthProvider } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPinPosition } from '../app/features/pinPosition/pinPositionSlice';
-import { updateViewPosition } from '../app/features/viewPosition/viewPositionSlice';
-import { createAddressString } from '../utils/locationUtils';
-import { ReactComponent as Pin_Outline } from '../Pin_Solid.svg';
-import { auth } from '../utils/firebase';
+import { addPinPosition } from '../../../../app/features/pinPosition/pinPositionSlice';
+import { updateViewPosition } from '../../../../app/features/viewPosition/viewPositionSlice';
+import { createAddressString } from '../../../../utils/locationUtils';
+import { ReactComponent as Pin_Outline } from '../../../../Pin_Solid.svg';
+import { auth } from '../../../../utils/firebase';
 import {
   addToPinnedList,
   removeFromPinnedList,
-} from '../app/features/pinnedList/pinnedListSlice';
-import { getPinned, getUserInfoById, putPinned } from '../Services/ApiService';
+} from '../../../../app/features/pinnedList/pinnedListSlice';
+import { putPinned } from '../../../../Services/ApiService';
+import '../Feed.css';
 
 function Location({ location }) {
   const [isPinned, setIsPinned] = useState(false);
