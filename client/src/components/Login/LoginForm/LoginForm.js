@@ -70,7 +70,7 @@ function LoginForm({ setToggleLogin }) {
           ></input>
         </label>
         <button
-          classname="formSubmitBtn"
+          className="formSubmitBtn"
           style={{ marginTop: '2vh' }}
           type="submit"
         >
