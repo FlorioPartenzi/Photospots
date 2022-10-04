@@ -2,8 +2,22 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 .leftSide {
   max-width: 70vw;
+  align-self: flex-start;
+}
+.rightSide {
+  order: 1;
+}
+@media (max-width: 550px) {
+  .rightSide {
+    order: -1;
+  }
+  .Mainpage {
+    flex-direction: column;
+    align-items: center;
+  }
 }

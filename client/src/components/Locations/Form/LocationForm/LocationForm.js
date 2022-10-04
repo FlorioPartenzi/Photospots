@@ -132,7 +132,7 @@ function LocationForm() {
   }, [image]);
 
   return (
-    <div className="formContainer">
+    <div className="formContainer addForm">
       <h2 className="formTitle">add Photospot</h2>
       <form onSubmit={submitHandler} className="form">
         <label className="formInputLabel">

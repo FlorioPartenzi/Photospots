@@ -14,7 +14,7 @@ function Navbar() {
     <nav className="navbar">
       <div style={{ display: 'flex' }}>
         <Logo className="logo"></Logo>
-        <h1>Photospots</h1>
+        <h1 className="mainTitle">Photospots</h1>
       </div>
       {user.email != '' ? (
         <>

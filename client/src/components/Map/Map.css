@@ -24,3 +24,9 @@
   height: 6vh;
   width: 6vh;
 }
+
+@media (max-width: 550px) {
+  .mapContainer {
+    width: 70vw;
+  }
+}

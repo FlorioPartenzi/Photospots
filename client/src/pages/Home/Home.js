@@ -21,7 +21,7 @@ function Home() {
         <PinnedLocations></PinnedLocations>
         <LocationList></LocationList>
       </div>
-      <div>
+      <div className="rightSide">
         <LocationForm></LocationForm>
         <Map></Map>
       </div>

@@ -22,6 +22,6 @@ app.use(router);
       console.log(`server running on http://localhost:${PORT}`);
     });
   } catch (error) {
-    console.log(error);
+    console.log('ERROR on Sart: ', error);
   }
 })();
