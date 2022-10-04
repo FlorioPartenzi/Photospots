@@ -56,7 +56,6 @@ button {
   padding-right: 2vw;
   display: flex;
   flex-direction: column;
-  width: 20vw;
   max-width: max-content;
   align-self: center;
 }

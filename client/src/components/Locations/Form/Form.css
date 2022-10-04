@@ -43,4 +43,7 @@
   .form {
     min-width: 70vw;
   }
+  .descriptionInput {
+    width: 32vw;
+  }
 }

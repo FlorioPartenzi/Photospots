@@ -16,6 +16,9 @@
   .rightSide {
     order: -1;
   }
+  .leftSide {
+    align-self: center;
+  }
   .Mainpage {
     flex-direction: column;
     align-items: center;
