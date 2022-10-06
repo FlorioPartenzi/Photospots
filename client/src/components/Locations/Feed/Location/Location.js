@@ -20,6 +20,8 @@ function Location({ location }) {
   const dispatch = useDispatch();
   const address = createAddressString(location);
   const pinnedLocations = useSelector((state) => state.pinnedList).pinnedList;
+  const markedLocations = useSelector((state) => state.pinPosition).pinPosition;
+
   const goToPos = () => {
     dispatch(updateViewPosition([location.lon, location.lat]));
   };
@@ -43,17 +45,27 @@ function Location({ location }) {
   };
 
   useEffect(() => {
-    setUsername(location.user.name);
-    dispatch(addPinPosition([location.lon, location.lat]));
+    if (
+      markedLocations.filter((marked) => {
+        return marked[0] == location.lon && marked[1] == location.lat;
+      }).length == 0
+    ) {
+      setUsername(location.user.name);
+      dispatch(addPinPosition([location.lon, location.lat]));
+    }
 
     if (location.isPinned) {
       setIsPinned(true);
       setClassName('pin pinned');
-      if (!pinnedLocations.includes(location)) {
+      if (
+        pinnedLocations.filter((pinned) => {
+          return pinned.id == location.id;
+        }).length == 0
+      ) {
         dispatch(addToPinnedList(location));
       }
     }
-  }, []);
+  }, [location]);
 
   return (
     <div

@@ -8,10 +8,8 @@ function Dropdown() {
   const [toggle, setToggle] = useState(false);
   const clickHandler = () => {
     if (toggle) {
-      console.log('on');
       setToggle(false);
     } else {
-      console.log('off');
       setToggle(true);
     }
   };
