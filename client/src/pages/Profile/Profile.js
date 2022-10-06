@@ -13,7 +13,6 @@ function Profile() {
   const dispatchUserLocations = async () => {
     const idToken = await auth.currentUser.getIdToken();
     const locations = await getLocationsByUser(idToken);
-    console.log('locations: ', locations);
     dispatch(setLocationList(locations));
   };
 
@@ -23,6 +22,7 @@ function Profile() {
     }
     dispatchUserLocations();
   }, []);
+
   return (
     <div>
       <div className="leftSide">

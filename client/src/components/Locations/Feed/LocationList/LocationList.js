@@ -12,30 +12,13 @@ function LocationList() {
   const [locations, setLocations] = useState([]);
   const dispatch = useDispatch();
   const locationList = useSelector((state) => state.locationList).locationList;
-  const getLocations = async () => {
-    const idToken = await auth.currentUser.getIdToken(true);
-    const userPos = await getUsersCurrentLocation();
-    const response = await getAllLocations(
-      userPos.coords.longitude,
-      userPos.coords.latitude,
-      idToken
-    );
-    dispatch(
-      updatePosition([userPos.coords.longitude, userPos.coords.latitude])
-    );
-    setLocations(response);
-  };
-  //set locations to all locations on first load
-  useEffect(() => {
-    getLocations();
-  }, []);
 
-  //if search show search else show all
+  // show content of the location list redux state, this allows
+  // for dynaic setting of the list, search profile home all cann set the state of the list
+
   useEffect(() => {
     if (locationList[0]) {
       setLocations(locationList);
-    } else {
-      getLocations();
     }
   }, [locationList]);
 

@@ -1,0 +1,8 @@
+.barsBtn {
+  width: 7vw;
+  padding: 0.5vh 0.5vw;
+}
+.menuList {
+  display: flex;
+  flex-direction: column;
+}

@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import '../Navbar.css';
 import './Navbar.css';
+import Dropdown from '../Dropdown/Dropdown';
 
 function Navbar() {
   const user = useSelector((state) => state.user);
@@ -19,7 +20,7 @@ function Navbar() {
       {user.email != '' ? (
         <>
           <Searchbar></Searchbar>
-          <LogoutBtn></LogoutBtn>
+          <Dropdown></Dropdown>
         </>
       ) : (
         <div></div>
