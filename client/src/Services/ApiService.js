@@ -133,6 +133,26 @@ export async function getAllLocations(lng, lat, idToken) {
   }
 }
 
+export async function getLocationsByUser(idToken) {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: { authToken: idToken },
+    };
+    const usrLocations = await (
+      await fetch(`${SEVRER_BASE_URL}/placesByUser`, requestOptions)
+    ).json();
+    if (usrLocations) return usrLocations;
+    return null;
+  } catch (error) {
+    console.log(
+      'ERROR in ApiService while fetching getLocationsByUser: ',
+      error
+    );
+    return { error: error };
+  }
+}
+
 export async function getLocationsBySearch(searchterm, idToken) {
   try {
     const requestOptions = {

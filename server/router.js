@@ -24,7 +24,7 @@ router.get('/profile', getUserInfo);
 router.get('/profile/:id', getUserInfoById);
 router.post('/newPlace', postNewPlace);
 router.get('/places/:lng/:lat', getAllPlaces);
-router.post('/placesByUser', getPlacesByUser);
+router.get('/placesByUser', getPlacesByUser);
 router.get('/findPlacesbySearch/:searchterm', getPlacesBySearch);
 router.get('/findPlacesbyDistance/:lng/:lat', getPlacesByDistance);
 router.put('/pinned', putUserPinned);

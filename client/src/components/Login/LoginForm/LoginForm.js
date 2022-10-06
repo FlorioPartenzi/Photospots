@@ -23,7 +23,8 @@ function LoginForm({ setToggleLogin }) {
         const idToken = await auth.currentUser.getIdToken(true);
         const response = await loginRequest(idToken);
         dispatch(login(response.email));
-        navigate('/home');
+        // navigate('/home');
+        navigate('/profile');
       }
     } catch (error) {
       console.log('ERROR in LoginForm: ', error);

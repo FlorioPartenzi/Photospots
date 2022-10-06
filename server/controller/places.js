@@ -91,12 +91,33 @@ const getAllPlaces = async function (req, res) {
 
 const getPlacesByUser = async function (req, res) {
   try {
+    const username = await prisma.users.findUnique({
+      where: { email: req.email },
+      select: { name: true },
+    });
     const places = await prisma.users.findUnique({
-      where: { email: req.body.email },
-      select: { places: true },
+      where: { email: req.email },
+      select: {
+        places: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            user: { select: { name: true } },
+            imgUrl: true,
+            housenumber: true,
+            street: true,
+            city: true,
+            postcode: true,
+            country: true,
+            lon: true,
+            lat: true,
+          },
+        },
+      },
     });
     res.status(200);
-    res.send(places);
+    res.send(places.places);
   } catch (error) {
     console.log('ERROR in controller/places.js at postNewPlace', error);
     res.status(500);
