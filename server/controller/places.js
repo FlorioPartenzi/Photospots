@@ -133,9 +133,27 @@ const getPlacesBySearch = async function (req, res) {
         where: {
           title: { contains: searchterm },
         },
+        select: {
+          places: {
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              user: { select: { name: true } },
+              imgUrl: true,
+              housenumber: true,
+              street: true,
+              city: true,
+              postcode: true,
+              country: true,
+              lon: true,
+              lat: true,
+            },
+          },
+        },
       });
       res.status(200);
-      res.send(places);
+      res.send(places.slice(0, 8));
     }
   } catch (error) {
     console.log('ERROR in controller/places.js at getPlacesBySearch', error);
@@ -150,11 +168,13 @@ const getPlacesByDistance = async function (req, res) {
     const lng = req.params.lng;
     if (lat && lng) {
       let places = await prisma.places.findMany({});
-      places = places.sort((a, b) => {
-        const distanceA = Math.abs(lng - a.lon) + Math.abs(lat - a.lat);
-        const distanceB = Math.abs(lng - b.lon) + Math.abs(lat - b.lat);
-        return distanceA - distanceB;
-      });
+      places = places
+        .sort((a, b) => {
+          const distanceA = Math.abs(lng - a.lon) + Math.abs(lat - a.lat);
+          const distanceB = Math.abs(lng - b.lon) + Math.abs(lat - b.lat);
+          return distanceA - distanceB;
+        })
+        .slice(0, 8);
       res.status(200);
       res.send(places);
     }

@@ -18,7 +18,9 @@ function LogoutBtn() {
   };
   return (
     <>
-      <button onClick={logoutUser}>Log Out</button>
+      <button onClick={logoutUser} className="menuItem">
+        Log Out
+      </button>
     </>
   );
 }

@@ -3,6 +3,17 @@
   padding: 0.5vh;
 }
 .menuList {
+  position: absolute;
   display: flex;
   flex-direction: column;
+  transform: translateX(15%);
+  /* background-color: var(--p1-color); */
+  border-radius: 10px;
+}
+
+.menuItem {
+  border-style: solid;
+  border-color: var(--p2-color);
+  margin: 0.6vh 0.6vh;
+  padding: 0.8vh;
 }

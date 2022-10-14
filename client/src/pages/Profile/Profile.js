@@ -6,27 +6,29 @@ import { setLocationList } from '../../app/features/locationList/locationListSli
 import { getLocationsByUser } from '../../Services/ApiService';
 import { auth } from '../../utils/firebase';
 import { useNavigate } from 'react-router-dom';
+import ToggleLocations from '../../components/Locations/Toggle/ToggleLocations';
 
 function Profile() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dispatchUserLocations = async () => {
-    const idToken = await auth.currentUser.getIdToken();
-    const locations = await getLocationsByUser(idToken);
-    dispatch(setLocationList(locations));
-  };
+  // const dispatchUserLocations = async () => {
+  //   const idToken = await auth.currentUser.getIdToken();
+  //   const locations = await getLocationsByUser(idToken);
+  //   dispatch(setLocationList(locations));
+  // };
 
   useEffect(() => {
     if (!auth.currentUser) {
       navigate('/');
     }
-    dispatchUserLocations();
+    // dispatchUserLocations();
   }, []);
 
   return (
     <div>
       <div className="leftSide">
         <PinnedLocations></PinnedLocations>
+        <ToggleLocations></ToggleLocations>
         <LocationList></LocationList>
       </div>
     </div>

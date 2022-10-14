@@ -31,8 +31,12 @@ function Dropdown() {
         {toggle ? (
           <div className="menuList">
             <LogoutBtn />
-            <button onClick={navigateToProfile}>Profile</button>
-            <button onClick={navigateToHome}>Home</button>
+            <button onClick={navigateToProfile} className="menuItem">
+              Profile
+            </button>
+            <button onClick={navigateToHome} className="menuItem">
+              Home
+            </button>
           </div>
         ) : (
           <></>

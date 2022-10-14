@@ -16,7 +16,7 @@ import './Location.css';
 function Location({ location }) {
   const [isPinned, setIsPinned] = useState(false);
   const [classNames, setClassName] = useState('pin');
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(location.user.name);
   const dispatch = useDispatch();
   const address = createAddressString(location);
   const pinnedLocations = useSelector((state) => state.pinnedList).pinnedList;
@@ -50,7 +50,6 @@ function Location({ location }) {
         return marked[0] == location.lon && marked[1] == location.lat;
       }).length == 0
     ) {
-      setUsername(location.user.name);
       dispatch(addPinPosition([location.lon, location.lat]));
     }
 
@@ -65,6 +64,7 @@ function Location({ location }) {
         dispatch(addToPinnedList(location));
       }
     }
+    setUsername(location.user.name);
   }, [location]);
 
   return (
