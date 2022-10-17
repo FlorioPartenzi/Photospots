@@ -23,6 +23,7 @@
   background-size: contain;
   height: 6vh;
   width: 6vh;
+  z-index: 1;
 }
 
 @media (max-width: 550px) {

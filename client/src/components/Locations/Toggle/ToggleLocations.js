@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { setLocationList } from '../../../app/features/locationList/locationListSlice';
 import { getLocationsByUser, getPinned } from '../../../Services/ApiService';
 import { auth } from '../../../utils/firebase';
+import './ToggleLocations.css';
 
 function ToggleLocations() {
   const [togglePinned, setTogglePinned] = useState('My Photospots');
@@ -35,11 +36,9 @@ function ToggleLocations() {
   }, []);
 
   return (
-    <div>
-      <button onClick={toggle}>
-        <h1>{togglePinned}</h1>
-      </button>
-    </div>
+    <button onClick={toggle} className="locationFeedToggle">
+      <h1>{togglePinned}</h1>
+    </button>
   );
 }
 export default ToggleLocations;

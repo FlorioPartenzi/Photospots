@@ -23,25 +23,23 @@ function Dropdown() {
   };
 
   return (
-    <div>
-      <button onClick={clickHandler}>
-        <Bars className="barsBtn"></Bars>
+    <div className="dropdown">
+      <button onClick={clickHandler} className="barsBtn">
+        <Bars></Bars>
       </button>
-      <div>
-        {toggle ? (
-          <div className="menuList">
-            <LogoutBtn />
-            <button onClick={navigateToProfile} className="menuItem">
-              Profile
-            </button>
-            <button onClick={navigateToHome} className="menuItem">
-              Home
-            </button>
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
+      {toggle ? (
+        <div className="menuList">
+          <LogoutBtn />
+          <button onClick={navigateToProfile} className="menuItem">
+            Profile
+          </button>
+          <button onClick={navigateToHome} className="menuItem">
+            Home
+          </button>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

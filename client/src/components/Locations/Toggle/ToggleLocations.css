@@ -1,0 +1,22 @@
+@keyframes transition {
+  from {
+    border-radius: 20px;
+  }
+  to {
+    border-radius: 40px;
+  }
+}
+
+.locationFeedToggle {
+  margin: 1vh 0vw 0vh 1vw;
+  border-radius: 20px;
+  border-style: solid;
+  padding: 0%;
+  width: 70vw;
+  max-width: 800px;
+}
+.locationFeedToggle:hover {
+  border-radius: 40px;
+  animation-name: transition;
+  animation-duration: 250ms;
+}
