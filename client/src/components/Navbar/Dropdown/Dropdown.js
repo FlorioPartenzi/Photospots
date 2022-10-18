@@ -13,6 +13,7 @@ function Dropdown() {
       setToggle(true);
     }
   };
+
   const navigateToHome = () => {
     navigate('/home');
     setToggle(false);
