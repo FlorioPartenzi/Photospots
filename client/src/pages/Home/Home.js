@@ -33,8 +33,9 @@ function Home() {
   useEffect(() => {
     if (!auth.currentUser) {
       navigate('/');
+    } else {
+      getLocations();
     }
-    getLocations();
   }, []);
 
   return (
