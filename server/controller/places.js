@@ -1,5 +1,44 @@
 const prisma = require('../model/index');
 
+const addPins = async (locations, email) => {
+  // get all the pinned ids
+  const pinned = await prisma.users.findUnique({
+    where: { email: email },
+    select: {
+      pinned: {
+        select: { id: true },
+      },
+    },
+  });
+
+  //see if pinned includes locations id and add an boolean
+  const withAddedPinns = locations.map((location) => {
+    if (
+      pinned &&
+      pinned.pinned.filter((place) => {
+        if (place.id == location.id) return true;
+      }).length > 0
+    ) {
+      location.isPinned = true;
+    } else {
+      location.isPinned = false;
+    }
+    return location;
+  });
+
+  //return the array
+  return withAddedPinns;
+};
+
+const sortByDistance = (locations, lat, lon) => {
+  const sorted = locations.sort((a, b) => {
+    const distanceA = Math.abs(lon - a.lon) + Math.abs(lat - a.lat);
+    const distanceB = Math.abs(lon - b.lon) + Math.abs(lat - b.lat);
+    return distanceA - distanceB;
+  });
+  return sorted;
+};
+
 const postNewPlace = async function (req, res) {
   try {
     const place = await prisma.users.update({
@@ -60,26 +99,8 @@ const getAllPlaces = async function (req, res) {
         lat: true,
       },
     });
-    let withPinned = all.map((location) => {
-      //see if location is pinned and add an boolean
-      if (
-        places[0].pinned.filter((place) => {
-          if (place.id == location.id) return true;
-        }).length > 0
-      ) {
-        location.isPinned = true;
-      } else {
-        location.isPinned = false;
-      }
-      return location;
-    });
-    if (lat && lng) {
-      withPinned = withPinned.sort((a, b) => {
-        const distanceA = Math.abs(lng - a.lon) + Math.abs(lat - a.lat);
-        const distanceB = Math.abs(lng - b.lon) + Math.abs(lat - b.lat);
-        return distanceA - distanceB;
-      });
-    }
+    const newlyPinned = await addPins(all, email);
+    const withPinned = sortByDistance(newlyPinned, lat, lng);
     res.status(200);
     res.send(withPinned);
   } catch (error) {
@@ -116,8 +137,15 @@ const getPlacesByUser = async function (req, res) {
         },
       },
     });
-    res.status(200);
-    res.send(places.places);
+
+    if (places) {
+      const withPinns = await addPins(places.places, req.email);
+      res.status(200);
+      res.send(withPinns);
+    } else {
+      res.status(200);
+      res.send({ msg: 'no places jet' });
+    }
   } catch (error) {
     console.log('ERROR in controller/places.js at postNewPlace', error);
     res.status(500);
@@ -128,10 +156,11 @@ const getPlacesByUser = async function (req, res) {
 const getPlacesBySearch = async function (req, res) {
   try {
     const searchterm = req.params.searchterm;
+
     if (searchterm) {
       const places = await prisma.places.findMany({
         where: {
-          title: { contains: searchterm },
+          title: { contains: searchterm, mode: 'insensitive' },
         },
         select: {
           id: true,
@@ -148,8 +177,10 @@ const getPlacesBySearch = async function (req, res) {
           lat: true,
         },
       });
+      const palcesWithPinned = await addPins(places, req.email);
+      const placesSliced = palcesWithPinned.slice(0, 8);
       res.status(200);
-      res.send(places.slice(0, 8));
+      res.send(placesSliced);
     }
   } catch (error) {
     console.log('ERROR in controller/places.js at getPlacesBySearch', error);
@@ -164,6 +195,7 @@ const getPlacesByDistance = async function (req, res) {
     const lng = req.params.lng;
     if (lat && lng) {
       let places = await prisma.places.findMany({});
+      places = addPins(places, req.email);
       places = places
         .sort((a, b) => {
           const distanceA = Math.abs(lng - a.lon) + Math.abs(lat - a.lat);
@@ -177,9 +209,10 @@ const getPlacesByDistance = async function (req, res) {
   } catch (error) {
     console.log('ERROR in controller/places.js at getPlacesByDistance', error);
     res.status(500);
-    res.send({ msg: 'failed to find place' });
+    res.send({ msg: 'failed to find places' });
   }
 };
+
 module.exports = {
   postNewPlace,
   getAllPlaces,

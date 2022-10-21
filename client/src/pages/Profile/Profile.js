@@ -1,35 +1,30 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import LocationList from '../../components/Locations/Feed/LocationList/LocationList';
 import PinnedLocations from '../../components/Locations/Pinned/LocationsPinned/LocationsPinned';
-import { setLocationList } from '../../app/features/locationList/locationListSlice';
-import { getLocationsByUser } from '../../Services/ApiService';
+import ToggleLocations from '../../components/Locations/Toggle/ToggleLocations';
+import UserInfo from '../../components/Profile/UserInfo';
+
 import { auth } from '../../utils/firebase';
 import { useNavigate } from 'react-router-dom';
-import ToggleLocations from '../../components/Locations/Toggle/ToggleLocations';
 
 function Profile() {
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const dispatchUserLocations = async () => {
-  //   const idToken = await auth.currentUser.getIdToken();
-  //   const locations = await getLocationsByUser(idToken);
-  //   dispatch(setLocationList(locations));
-  // };
 
   useEffect(() => {
     if (!auth.currentUser) {
       navigate('/');
     }
-    // dispatchUserLocations();
   }, []);
 
   return (
-    <div>
+    <div className="Mainpage">
       <div className="leftSide">
         <PinnedLocations></PinnedLocations>
         <ToggleLocations></ToggleLocations>
         <LocationList></LocationList>
+      </div>
+      <div className="righSide">
+        <UserInfo></UserInfo>
       </div>
     </div>
   );

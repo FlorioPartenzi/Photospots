@@ -13,7 +13,28 @@ function ToggleLocations() {
     const idToken = await auth.currentUser.getIdToken();
     setTogglePinned('My Photospots');
     const myPhotospots = await getLocationsByUser(idToken);
-    dispatch(setLocationList(myPhotospots));
+    if (myPhotospots.length < 0) dispatch(setLocationList(myPhotospots));
+    if (myPhotospots.length == 0)
+      dispatch(
+        setLocationList([
+          {
+            id: '6332f23407c2afa587d7c59d',
+            title: 'No Photospots',
+            description: "You currently don't have any Photospots",
+            user: { name: 'nobody', email: 'nowhere@nirwana.com' },
+            imgUrl:
+              'https://firebasestorage.googleapis.com/v0/b/photospots-e5a41.appspot.com/o/utils%2FPhotospots_Logo_512x512.png?alt=media&token=aaba6daf-27c6-414b-a817-63b627bb0efc',
+            housenumber: '',
+            street: '',
+            city: '',
+            postcode: '',
+            country: 'nowhere',
+            lon: 10.7915786,
+            lat: 45.8141194,
+            isPinned: false,
+          },
+        ])
+      );
   };
 
   const displayPinned = async () => {

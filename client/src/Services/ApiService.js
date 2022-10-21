@@ -36,6 +36,7 @@ export async function registerRequest(name, email, idToken) {
     return { error: error };
   }
 }
+
 export async function getUserInfo(idToken) {
   try {
     const requestOptions = {
@@ -53,6 +54,7 @@ export async function getUserInfo(idToken) {
     return { error: error };
   }
 }
+
 export async function getUserInfoById(id, idToken) {
   try {
     const requestOptions = {

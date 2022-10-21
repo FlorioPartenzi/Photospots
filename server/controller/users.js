@@ -7,6 +7,7 @@ const registerUser = async function (req, res) {
         data: {
           name: req.body.name,
           email: req.body.email,
+          createdAt: new Date().toISOString(),
         },
       };
       const userAllreadyInUse = await prisma.users.findUnique({
@@ -55,9 +56,16 @@ const getUserInfo = async function (req, res) {
     if (req.email) {
       const user = await prisma.users.findUnique({
         where: { email: req.email },
-        select: { name: true, email: true },
+        select: {
+          email: true,
+          name: true,
+          createdAt: true,
+          id: true,
+          placeIDs: true,
+          places: true,
+        },
       });
-
+      console.log(user);
       res.status(200);
       res.send(user);
     } else {
@@ -70,6 +78,7 @@ const getUserInfo = async function (req, res) {
     res.send({ msg: 'failed to load user information' });
   }
 };
+
 const getUserInfoById = async function (req, res) {
   try {
     if (req.email) {
@@ -162,7 +171,6 @@ const getUserPinned = async function (req, res) {
     pinned.map((location) => {
       location.isPinned = true;
     });
-
     res.send(pinned);
     res.status(200);
   } catch (error) {
