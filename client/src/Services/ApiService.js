@@ -74,34 +74,22 @@ export async function getUserInfoById(id, idToken) {
   }
 }
 //refractor to obj as argument!!!!
-export async function postNewLocation(
-  title,
-  description,
-  housenumber,
-  street,
-  city,
-  postcode,
-  country,
-  lon,
-  lat,
-  imgUrl,
-  idToken
-) {
+export async function postNewLocation(input, idToken) {
   try {
     const requestOptions = {
       method: 'POST',
       headers: { authToken: idToken, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        title: title,
-        description: description,
-        housenumber: housenumber,
-        street: street,
-        city: city,
-        postcode: postcode,
-        country: country,
-        lon: lon,
-        lat: lat,
-        imgUrl: imgUrl,
+        title: input.title,
+        description: input.description,
+        housenumber: input.housenumber,
+        street: input.street,
+        city: input.city,
+        postcode: input.postcode,
+        country: input.country,
+        lon: input.lon,
+        lat: input.lat,
+        imgUrl: input.imgUrl,
       }),
     };
     const location = await (

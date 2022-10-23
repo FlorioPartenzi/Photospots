@@ -44,29 +44,22 @@ function LocationForm() {
     const idToken = await auth.currentUser.getIdToken(true);
     setSubmitMsg('••');
     const response = await getCompleteAddress(address);
-    const housenumber = response.features[0].properties.housenumber || '';
-    const street = response.features[0].properties.street || '';
-    const city = response.features[0].properties.city || '';
-    const postcode = response.features[0].properties.postcode || '';
-    const country = response.features[0].properties.country || '';
-    const lon = response.features[0].properties.lon;
-    const lat = response.features[0].properties.lat;
     setSubmitMsg('•');
+    const locationObj = {
+      title: event.target.title.value,
+      description: event.target.description.value,
+      housenumber: response.features[0].properties.housenumber || '',
+      street: response.features[0].properties.street || '',
+      city: response.features[0].properties.city || '',
+      postcode: response.features[0].properties.postcode || '',
+      country: response.features[0].properties.country || '',
+      lon: response.features[0].properties.lon,
+      lat: response.features[0].properties.lat,
+      imgUrl: imgUrl,
+    };
 
-    // creating the new location in the Database
-    postNewLocation(
-      event.target.title.value,
-      event.target.description.value,
-      housenumber,
-      street,
-      city,
-      postcode,
-      country,
-      lon,
-      lat,
-      imgUrl,
-      idToken
-    );
+    // creating the new location in the Backend
+    postNewLocation(locationObj, idToken);
 
     //cleaning up the input form
     event.target.title.value = '';
@@ -106,7 +99,7 @@ function LocationForm() {
   useEffect(() => {
     if (image) {
       const compressedImage = compressImage(image);
-      setCompressedImage(compressedImage);
+      setCompressedImage(compressedImage.file);
     }
   }, [image]);
 
