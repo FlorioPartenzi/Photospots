@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const viewPositionSlice = createSlice({
   initialState: {
-    viewPosition: [2.11, 41.43],
+    viewPosition: [0.0, 0.0],
   },
 
   name: 'viewPosition',

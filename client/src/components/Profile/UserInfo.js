@@ -12,7 +12,6 @@ function UserInfo() {
   const getUserName = async () => {
     const idToken = await auth.currentUser.getIdToken(true);
     const user = await getUserInfo(idToken);
-    console.log(user);
     setUserName(user.name);
     setUserMail(user.email);
     setUserPinned(user.placeIDs.length);

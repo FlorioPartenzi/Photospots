@@ -65,7 +65,6 @@ const getUserInfo = async function (req, res) {
           places: true,
         },
       });
-      console.log(user);
       res.status(200);
       res.send(user);
     } else {

@@ -24,8 +24,12 @@ function Dropdown() {
   };
 
   return (
-    <div className="dropdown">
-      <button onClick={clickHandler} className="barsBtn">
+    <div
+      onMouseEnter={clickHandler}
+      onMouseLeave={clickHandler}
+      className="dropdown"
+    >
+      <button className="barsBtn">
         <Bars></Bars>
       </button>
       {toggle ? (

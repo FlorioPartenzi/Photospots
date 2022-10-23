@@ -18,16 +18,24 @@ function Home() {
 
   const getLocations = async () => {
     const idToken = await auth.currentUser.getIdToken(true);
-    const userPos = await getUsersCurrentLocation();
-    const response = await getAllLocations(
-      userPos.coords.longitude,
-      userPos.coords.latitude,
-      idToken
-    );
-    dispatch(
-      updatePosition([userPos.coords.longitude, userPos.coords.latitude])
-    );
-    dispatch(setLocationList(response));
+    //try catch in case the users Position cant be resolved (user did not accept tracking)
+    try {
+      const userPos = await getUsersCurrentLocation();
+      const response = await getAllLocations(
+        userPos.coords.longitude,
+        userPos.coords.latitude,
+        idToken
+      );
+      dispatch(
+        updatePosition([userPos.coords.longitude, userPos.coords.latitude])
+      );
+      dispatch(setLocationList(response));
+    } catch (error) {
+      console.log(error);
+      const response = await getAllLocations(0.0, 0.0, idToken);
+      dispatch(updatePosition([0.0, 0.0]));
+      dispatch(setLocationList(response));
+    }
   };
 
   useEffect(() => {
