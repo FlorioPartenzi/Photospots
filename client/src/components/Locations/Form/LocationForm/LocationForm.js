@@ -6,7 +6,7 @@ import {
 } from '../../../../Services/ApiService';
 import LocationProposal from '../LocationProposal/LocationProposal';
 import { uploadImageToFirebase } from '../../../../Services/FirebaseService';
-import Compressor from 'compressorjs';
+import { compressImage } from '../../../../utils/imageUtils';
 import {
   getAutocompleteAdressByText,
   getCompleteAddress,
@@ -34,7 +34,7 @@ function LocationForm() {
   const submitHandler = async (event) => {
     event.preventDefault();
     setSubmitMsg('Uploading');
-    //uploading the image file to Firebase and fetching fore the URL
+    //uploading the image file to Firebase and fetching for the URL
     if (image == null) return;
     const imgUrl = await uploadImageToFirebase(compressedImage);
     setSubmitMsg('•');
@@ -104,30 +104,9 @@ function LocationForm() {
 
   //compresses the image
   useEffect(() => {
-    const compressImage = (image) => {
-      return new Compressor(image, {
-        quality: 0.6,
-        success: (compressedResult) => {
-          setCompressedImage(compressedResult);
-          return compressedResult;
-        },
-      });
-    };
-    const compressImageALot = (image) => {
-      return new Compressor(image, {
-        quality: 0.4,
-        success: (compressedResult) => {
-          setCompressedImage(compressedResult);
-          return compressedResult;
-        },
-      });
-    };
     if (image) {
-      if (image.size < 1000000) {
-        compressImage(image);
-      } else {
-        compressImageALot(image);
-      }
+      const compressedImage = compressImage(image);
+      setCompressedImage(compressedImage);
     }
   }, [image]);
 
