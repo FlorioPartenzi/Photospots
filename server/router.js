@@ -17,7 +17,7 @@ const {
 
 const router = new Router();
 
-//all the endpoints go here
+// all the endpoints go here
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/profile', getUserInfo);
