@@ -10,7 +10,6 @@ body {
   margin: 0%;
   background-color: var(--nb-color);
   color: var(--p2-color);
-  overflow-y: hidden;
 }
 h1 {
   font-family: 'Fredoka One', serif;
@@ -51,6 +50,7 @@ button {
 }
 .formTitle {
   font-size: 3vw;
+  margin: 3.5vh;
 }
 .formInputLabel {
   padding-left: 2vw;
