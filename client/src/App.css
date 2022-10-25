@@ -10,6 +10,7 @@ body {
   margin: 0%;
   background-color: var(--nb-color);
   color: var(--p2-color);
+  overflow-y: hidden;
 }
 h1 {
   font-family: 'Fredoka One', serif;

@@ -19,11 +19,10 @@ function Profile() {
   return (
     <div className="Mainpage">
       <div className="leftSide">
-        <PinnedLocations></PinnedLocations>
         <ToggleLocations></ToggleLocations>
         <LocationList></LocationList>
       </div>
-      <div className="righSide">
+      <div className="rightSide">
         <UserInfo></UserInfo>
       </div>
     </div>

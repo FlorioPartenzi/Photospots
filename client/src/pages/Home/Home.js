@@ -53,8 +53,10 @@ function Home() {
         <LocationList></LocationList>
       </div>
       <div className="rightSide">
-        <LocationForm></LocationForm>
-        <Map></Map>
+        <div className="rightSideMapAndForm">
+          <LocationForm></LocationForm>
+          <Map></Map>
+        </div>
       </div>
     </main>
   );

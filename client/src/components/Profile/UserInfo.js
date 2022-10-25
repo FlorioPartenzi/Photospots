@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getUserInfo } from '../../Services/ApiService';
 import { auth } from '../../utils/firebase';
+import './UserInfo.css';
 
 function UserInfo() {
   const [userName, setUserName] = useState('');
@@ -33,12 +34,14 @@ function UserInfo() {
   }, []);
 
   return (
-    <div style={{ margin: '1vw' }}>
-      <h1>{userName}</h1>
-      <p>e-mail: {userMail}</p>
-      <p>created at: {userDate}</p>
-      <p>pinned: {userPinned} </p>
-      <p>places: {userPlaces} </p>
+    <div className="profileInfoContainerFlex">
+      <div className="profileInfoContainer">
+        <h1>{userName}</h1>
+        <p>e-mail: {userMail}</p>
+        <p>created at: {userDate}</p>
+        <p>pinned: {userPinned} </p>
+        <p>places: {userPlaces} </p>
+      </div>
     </div>
   );
 }
