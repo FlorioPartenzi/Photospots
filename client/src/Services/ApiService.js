@@ -1,4 +1,5 @@
-const SEVRER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL;
+// const SEVRER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL;
+const SEVRER_BASE_URL = 'http://192.168.178.27:3001';
 
 export async function loginRequest(idToken) {
   try {
@@ -36,6 +37,7 @@ export async function registerRequest(name, email, idToken) {
     return { error: error };
   }
 }
+
 export async function getUserInfo(idToken) {
   try {
     const requestOptions = {
@@ -53,6 +55,7 @@ export async function getUserInfo(idToken) {
     return { error: error };
   }
 }
+
 export async function getUserInfoById(id, idToken) {
   try {
     const requestOptions = {
@@ -71,34 +74,22 @@ export async function getUserInfoById(id, idToken) {
   }
 }
 //refractor to obj as argument!!!!
-export async function postNewLocation(
-  title,
-  description,
-  housenumber,
-  street,
-  city,
-  postcode,
-  country,
-  lon,
-  lat,
-  imgUrl,
-  idToken
-) {
+export async function postNewLocation(input, idToken) {
   try {
     const requestOptions = {
       method: 'POST',
       headers: { authToken: idToken, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        title: title,
-        description: description,
-        housenumber: housenumber,
-        street: street,
-        city: city,
-        postcode: postcode,
-        country: country,
-        lon: lon,
-        lat: lat,
-        imgUrl: imgUrl,
+        title: input.title,
+        description: input.description,
+        housenumber: input.housenumber,
+        street: input.street,
+        city: input.city,
+        postcode: input.postcode,
+        country: input.country,
+        lon: input.lon,
+        lat: input.lat,
+        imgUrl: input.imgUrl,
       }),
     };
     const location = await (
@@ -127,6 +118,26 @@ export async function getAllLocations(lng, lat, idToken) {
   } catch (error) {
     console.log(
       'ERROR in ApiService while fetching get all locations: ',
+      error
+    );
+    return { error: error };
+  }
+}
+
+export async function getLocationsByUser(idToken) {
+  try {
+    const requestOptions = {
+      method: 'GET',
+      headers: { authToken: idToken },
+    };
+    const usrLocations = await (
+      await fetch(`${SEVRER_BASE_URL}/placesByUser`, requestOptions)
+    ).json();
+    if (usrLocations) return usrLocations;
+    return null;
+  } catch (error) {
+    console.log(
+      'ERROR in ApiService while fetching getLocationsByUser: ',
       error
     );
     return { error: error };
@@ -187,7 +198,7 @@ export async function putPinned(id, add, idToken) {
       body: JSON.stringify({ id: id, add: add }),
     };
     const location = await fetch(`${SEVRER_BASE_URL}/pinned`, requestOptions);
-    const locationParsed = location.json();
+    const locationParsed = await location.json();
     if (locationParsed) return locationParsed;
     return null;
   } catch (error) {
@@ -205,7 +216,7 @@ export async function getPinned(idToken) {
     const location = await (
       await fetch(`${SEVRER_BASE_URL}/pinned`, requestOptions)
     ).json();
-    if (location) return location[0].pinned;
+    if (location) return location;
     return null;
   } catch (error) {
     console.log('ERROR in ApiService while fetching put pinned: ', error);

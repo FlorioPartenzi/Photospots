@@ -11,14 +11,17 @@ import {
 } from '../../../../app/features/pinnedList/pinnedListSlice';
 import { putPinned } from '../../../../Services/ApiService';
 import '../Feed.css';
+import './Location.css';
 
 function Location({ location }) {
   const [isPinned, setIsPinned] = useState(false);
   const [classNames, setClassName] = useState('pin');
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState(location.user.name);
   const dispatch = useDispatch();
   const address = createAddressString(location);
   const pinnedLocations = useSelector((state) => state.pinnedList).pinnedList;
+  const markedLocations = useSelector((state) => state.pinPosition).pinPosition;
+
   const goToPos = () => {
     dispatch(updateViewPosition([location.lon, location.lat]));
   };
@@ -42,17 +45,27 @@ function Location({ location }) {
   };
 
   useEffect(() => {
-    setUsername(location.user.name);
-    dispatch(addPinPosition([location.lon, location.lat]));
+    if (
+      markedLocations.filter((marked) => {
+        return marked[0] == location.lon && marked[1] == location.lat;
+      }).length == 0
+    ) {
+      dispatch(addPinPosition([location.lon, location.lat]));
+    }
 
     if (location.isPinned) {
       setIsPinned(true);
       setClassName('pin pinned');
-      if (!pinnedLocations.includes(location)) {
+      if (
+        pinnedLocations.filter((pinned) => {
+          return pinned.id == location.id;
+        }).length == 0
+      ) {
         dispatch(addToPinnedList(location));
       }
     }
-  }, []);
+    setUsername(location.user.name);
+  }, [location]);
 
   return (
     <div

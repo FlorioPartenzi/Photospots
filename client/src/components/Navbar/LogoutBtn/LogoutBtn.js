@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { removeAllFromPinnedList } from '../../../app/features/pinnedList/pinnedListSlice';
 import '../Navbar.css';
+import './LogoutBtn.css';
+
 function LogoutBtn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,7 +18,9 @@ function LogoutBtn() {
   };
   return (
     <>
-      <button onClick={logoutUser}>Log Out</button>
+      <button onClick={logoutUser} className="menuItem">
+        Log Out
+      </button>
     </>
   );
 }

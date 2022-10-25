@@ -1,4 +1,3 @@
-const { places } = require('../model/index');
 const prisma = require('../model/index');
 
 const registerUser = async function (req, res) {
@@ -8,6 +7,7 @@ const registerUser = async function (req, res) {
         data: {
           name: req.body.name,
           email: req.body.email,
+          createdAt: new Date().toISOString(),
         },
       };
       const userAllreadyInUse = await prisma.users.findUnique({
@@ -56,9 +56,15 @@ const getUserInfo = async function (req, res) {
     if (req.email) {
       const user = await prisma.users.findUnique({
         where: { email: req.email },
-        select: { name: true, email: true },
+        select: {
+          email: true,
+          name: true,
+          createdAt: true,
+          id: true,
+          placeIDs: true,
+          places: true,
+        },
       });
-
       res.status(200);
       res.send(user);
     } else {
@@ -71,6 +77,7 @@ const getUserInfo = async function (req, res) {
     res.send({ msg: 'failed to load user information' });
   }
 };
+
 const getUserInfoById = async function (req, res) {
   try {
     if (req.email) {
@@ -112,8 +119,8 @@ const putUserPinned = async function (req, res) {
           },
         },
       });
-      res.status(201);
       res.send(userId);
+      res.status(201);
     } else {
       const userId = await prisma.users.update({
         where: { email: req.email },
@@ -125,8 +132,8 @@ const putUserPinned = async function (req, res) {
           },
         },
       });
-      res.status(204);
       res.send(userId);
+      res.status(204);
     }
   } catch (error) {
     console.log('ERROR in controller/index.js at putUserPinned', error);
@@ -139,10 +146,32 @@ const getUserPinned = async function (req, res) {
   try {
     const places = await prisma.users.findMany({
       where: { email: req.email },
-      select: { pinned: true },
+      select: {
+        pinned: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            user: { select: { name: true } },
+            imgUrl: true,
+            housenumber: true,
+            street: true,
+            city: true,
+            postcode: true,
+            country: true,
+            lon: true,
+            lat: true,
+          },
+        },
+      },
     });
+    const pinned = places[0].pinned;
+
+    pinned.map((location) => {
+      location.isPinned = true;
+    });
+    res.send(pinned);
     res.status(200);
-    res.send(places);
   } catch (error) {
     console.log('ERROR in controller/index.js at getUserPinned', error);
     res.status(500);

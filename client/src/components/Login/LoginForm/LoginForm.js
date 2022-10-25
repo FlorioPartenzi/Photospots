@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../../app/features/user/userSlice';
 import '../Login.css';
+import './LoginForm.css';
 
 function LoginForm({ setToggleLogin }) {
   const navigate = useNavigate();

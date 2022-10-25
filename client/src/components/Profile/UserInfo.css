@@ -1,0 +1,17 @@
+.profileInfoContainerFlex {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileInfoContainer {
+  margin: 1vw;
+  margin-top: 0vh;
+  padding: 1vh;
+  border-style: solid;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}

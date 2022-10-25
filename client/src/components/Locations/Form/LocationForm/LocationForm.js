@@ -6,7 +6,7 @@ import {
 } from '../../../../Services/ApiService';
 import LocationProposal from '../LocationProposal/LocationProposal';
 import { uploadImageToFirebase } from '../../../../Services/FirebaseService';
-import Compressor from 'compressorjs';
+import { compressImage } from '../../../../utils/imageUtils';
 import {
   getAutocompleteAdressByText,
   getCompleteAddress,
@@ -14,6 +14,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { setLocationList } from '../../../../app/features/locationList/locationListSlice';
 import '../Form.css';
+import './LocationForm.css';
 
 function LocationForm() {
   const [image, setImage] = useState(null);
@@ -33,7 +34,7 @@ function LocationForm() {
   const submitHandler = async (event) => {
     event.preventDefault();
     setSubmitMsg('Uploading');
-    //uploading the image file to Firebase and fetching fore the URL
+    //uploading the image file to Firebase and fetching for the URL
     if (image == null) return;
     const imgUrl = await uploadImageToFirebase(compressedImage);
     setSubmitMsg('•');
@@ -43,29 +44,22 @@ function LocationForm() {
     const idToken = await auth.currentUser.getIdToken(true);
     setSubmitMsg('••');
     const response = await getCompleteAddress(address);
-    const housenumber = response.features[0].properties.housenumber || '';
-    const street = response.features[0].properties.street || '';
-    const city = response.features[0].properties.city || '';
-    const postcode = response.features[0].properties.postcode || '';
-    const country = response.features[0].properties.country || '';
-    const lon = response.features[0].properties.lon;
-    const lat = response.features[0].properties.lat;
     setSubmitMsg('•');
+    const locationObj = {
+      title: event.target.title.value,
+      description: event.target.description.value,
+      housenumber: response.features[0].properties.housenumber || '',
+      street: response.features[0].properties.street || '',
+      city: response.features[0].properties.city || '',
+      postcode: response.features[0].properties.postcode || '',
+      country: response.features[0].properties.country || '',
+      lon: response.features[0].properties.lon,
+      lat: response.features[0].properties.lat,
+      imgUrl: imgUrl,
+    };
 
-    // creating the new location in the Database
-    postNewLocation(
-      event.target.title.value,
-      event.target.description.value,
-      housenumber,
-      street,
-      city,
-      postcode,
-      country,
-      lon,
-      lat,
-      imgUrl,
-      idToken
-    );
+    // creating the new location in the Backend
+    postNewLocation(locationObj, idToken);
 
     //cleaning up the input form
     event.target.title.value = '';
@@ -103,35 +97,14 @@ function LocationForm() {
 
   //compresses the image
   useEffect(() => {
-    const compressImage = (image) => {
-      return new Compressor(image, {
-        quality: 0.6,
-        success: (compressedResult) => {
-          setCompressedImage(compressedResult);
-          return compressedResult;
-        },
-      });
-    };
-    const compressImageALot = (image) => {
-      return new Compressor(image, {
-        quality: 0.4,
-        success: (compressedResult) => {
-          setCompressedImage(compressedResult);
-          return compressedResult;
-        },
-      });
-    };
     if (image) {
-      if (image.size < 1000000) {
-        compressImage(image);
-      } else {
-        compressImageALot(image);
-      }
+      const compressedImage = compressImage(image);
+      setCompressedImage(compressedImage.file);
     }
   }, [image]);
 
   return (
-    <div className="formContainer">
+    <div className="formContainer addForm">
       <h2 className="formTitle">add Photospot</h2>
       <form onSubmit={submitHandler} className="form">
         <label className="formInputLabel">

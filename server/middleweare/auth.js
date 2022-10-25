@@ -26,9 +26,13 @@ const serviceAccount = {
     FIREBASE_SERVICE_ACCOUNT_AUTH_PROVIDER_X509_CERT_URL,
   client_x509_cert_url: FIREBASE_SERVICE_ACCOUNT_CLIENT_X509_CERT_URL,
 };
+// initialization
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
+
+// checkung the Authentication (is the user logged in or not)
+// and adding the e-mail to the request
 
 async function checkAuth(req, res, next) {
   if (req.headers.authtoken) {

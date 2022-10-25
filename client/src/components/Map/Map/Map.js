@@ -13,10 +13,14 @@ function Map() {
   const centerCoordinates = useSelector(
     (state) => state.viewPosition
   ).viewPosition;
+
   const locationCoordinates = useSelector(
     (state) => state.pinPosition
   ).pinPosition;
+
   const dispatch = useDispatch();
+
+  // starts the map
   useEffect(() => {
     if (map.current) return;
     map.current = new mapboxgl.Map({
@@ -28,6 +32,7 @@ function Map() {
   }, []);
 
   // set a marker at the users Coordiantes
+  // and update the center of the map to the users position
   useEffect(() => {
     if (coordinates[0] != undefined) {
       const markerDiv = document.createElement('div');
@@ -35,9 +40,16 @@ function Map() {
       const marker = new mapboxgl.Marker(markerDiv)
         .setLngLat(coordinates)
         .addTo(map.current);
+
+      map.current.flyTo({
+        zoom: 10,
+        center: coordinates,
+        essential: true,
+      });
     }
   }, [coordinates]);
 
+  //set the markers at the position of the locations
   useEffect(() => {
     const createMarkerAt = (coordinates) => {
       const markerDiv = document.createElement('div');
@@ -54,6 +66,7 @@ function Map() {
     });
   }, [locationCoordinates]);
 
+  // hook to center the map to the location of the Photospot that has been clicked
   useEffect(() => {
     map.current.flyTo({
       zoom: 10,

@@ -1,4 +1,5 @@
 const prisma = require('../model/index');
+const { addPins, sortByDistance } = require('./utils/placesUtils');
 
 const postNewPlace = async function (req, res) {
   try {
@@ -60,26 +61,8 @@ const getAllPlaces = async function (req, res) {
         lat: true,
       },
     });
-    let withPinned = all.map((location) => {
-      //see if location is pinned and add an boolean
-      if (
-        places[0].pinned.filter((place) => {
-          if (place.id == location.id) return true;
-        }).length > 0
-      ) {
-        location.isPinned = true;
-      } else {
-        location.isPinned = false;
-      }
-      return location;
-    });
-    if (lat && lng) {
-      withPinned = withPinned.sort((a, b) => {
-        const distanceA = Math.abs(lng - a.lon) + Math.abs(lat - a.lat);
-        const distanceB = Math.abs(lng - b.lon) + Math.abs(lat - b.lat);
-        return distanceA - distanceB;
-      });
-    }
+    const newlyPinned = await addPins(all, email);
+    const withPinned = sortByDistance(newlyPinned, lat, lng);
     res.status(200);
     res.send(withPinned);
   } catch (error) {
@@ -92,11 +75,35 @@ const getAllPlaces = async function (req, res) {
 const getPlacesByUser = async function (req, res) {
   try {
     const places = await prisma.users.findUnique({
-      where: { email: req.body.email },
-      select: { places: true },
+      where: { email: req.email },
+      select: {
+        places: {
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            user: { select: { name: true } },
+            imgUrl: true,
+            housenumber: true,
+            street: true,
+            city: true,
+            postcode: true,
+            country: true,
+            lon: true,
+            lat: true,
+          },
+        },
+      },
     });
-    res.status(200);
-    res.send(places);
+
+    if (places) {
+      const withPinns = await addPins(places.places, req.email);
+      res.status(200);
+      res.send(withPinns);
+    } else {
+      res.status(200);
+      res.send({ msg: 'no places jet' });
+    }
   } catch (error) {
     console.log('ERROR in controller/places.js at postNewPlace', error);
     res.status(500);
@@ -107,14 +114,31 @@ const getPlacesByUser = async function (req, res) {
 const getPlacesBySearch = async function (req, res) {
   try {
     const searchterm = req.params.searchterm;
+
     if (searchterm) {
       const places = await prisma.places.findMany({
         where: {
-          title: { contains: searchterm },
+          title: { contains: searchterm, mode: 'insensitive' },
+        },
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          user: { select: { name: true } },
+          imgUrl: true,
+          housenumber: true,
+          street: true,
+          city: true,
+          postcode: true,
+          country: true,
+          lon: true,
+          lat: true,
         },
       });
+      const palcesWithPinned = await addPins(places, req.email);
+      const placesSliced = palcesWithPinned.slice(0, 8);
       res.status(200);
-      res.send(places);
+      res.send(placesSliced);
     }
   } catch (error) {
     console.log('ERROR in controller/places.js at getPlacesBySearch', error);
@@ -129,20 +153,24 @@ const getPlacesByDistance = async function (req, res) {
     const lng = req.params.lng;
     if (lat && lng) {
       let places = await prisma.places.findMany({});
-      places = places.sort((a, b) => {
-        const distanceA = Math.abs(lng - a.lon) + Math.abs(lat - a.lat);
-        const distanceB = Math.abs(lng - b.lon) + Math.abs(lat - b.lat);
-        return distanceA - distanceB;
-      });
+      places = addPins(places, req.email);
+      places = places
+        .sort((a, b) => {
+          const distanceA = Math.abs(lng - a.lon) + Math.abs(lat - a.lat);
+          const distanceB = Math.abs(lng - b.lon) + Math.abs(lat - b.lat);
+          return distanceA - distanceB;
+        })
+        .slice(0, 8);
       res.status(200);
       res.send(places);
     }
   } catch (error) {
     console.log('ERROR in controller/places.js at getPlacesByDistance', error);
     res.status(500);
-    res.send({ msg: 'failed to find place' });
+    res.send({ msg: 'failed to find places' });
   }
 };
+
 module.exports = {
   postNewPlace,
   getAllPlaces,

@@ -32,3 +32,19 @@
   color: var(--nb-color);
   align-self: center;
 }
+.addForm {
+  display: block;
+  margin-top: 0%;
+}
+
+@media (max-width: 550px) {
+  .addForm {
+    display: inline-block;
+  }
+  .form {
+    min-width: 70vw;
+  }
+  .descriptionInput {
+    width: 32vw;
+  }
+}

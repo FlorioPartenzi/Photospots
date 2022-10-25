@@ -3,7 +3,7 @@
   margin: 2vh 1vw;
   border-radius: 16px;
   border-style: solid;
-  height: 36vh;
+  height: 38vh;
 }
 
 .marker {
@@ -23,4 +23,11 @@
   background-size: contain;
   height: 6vh;
   width: 6vh;
+  z-index: 1;
+}
+
+@media (max-width: 550px) {
+  .mapContainer {
+    width: 70vw;
+  }
 }
