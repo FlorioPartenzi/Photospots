@@ -1,5 +1,4 @@
-// const SEVRER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL;
-const SEVRER_BASE_URL = 'http://192.168.178.27:3001';
+const SEVRER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL;
 
 export async function loginRequest(idToken) {
   try {
