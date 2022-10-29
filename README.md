@@ -5,11 +5,17 @@
 # Photospots
 
 share nice places to take photos
+visit the deployed version here: https://photospots-production.up.railway.app/
 
 <p align="center">
-<img src="./ReadMe-Images/Screenshot.png">
+<img src="./ReadMe-Images/Screenshot_1.png">
 </p>
-
+<p align="center">
+<img src="./ReadMe-Images/Screenshot_2.png">
+</p>
+<p align="center">
+<img src="./ReadMe-Images/Screenshot_3.png">
+</p>
 # Installation
 
 1. Clone this repo!
